@@ -1,0 +1,72 @@
+{
+    "name": "@cryptech.services/lgplib",
+    "version": "1.0.0",
+    "description": "Library for interacting with the Metrix Liquid Governance Protocol",
+    "repository": "Cryptech-Services/lgplib",
+    "source": "src/index.ts",
+    "main": "lib/index.js",
+    "types": "lib/index.d.ts",
+    "files": [
+        "lib/**/*",
+        "README.md"
+    ],
+    "directories": {
+        "lib": "./lib",
+        "src": "./src",
+        "test": "./src"
+    },
+    "engines": {
+        "npm": ">=8.0.0",
+        "node": ">=16.0.0"
+    },
+    "scripts": {
+        "test": "mocha --config mocharc.json",
+        "coverage": "nyc --reporter=json-summary npm run test",
+        "lint": "eslint . --ext .ts",
+        "format": "prettier --write \"**/*.+(js|ts|json)\"",
+        "build": "tsc",
+        "doc": "npx typedoc src"
+    },
+    "nyc": {
+        "include": [
+            "src"
+        ],
+        "exclude": [
+            "**/*.spec.*",
+            "coverage"
+        ],
+        "extends": "@istanbuljs/nyc-config-typescript",
+        "all": true,
+        "check-coverage": true
+    },
+    "author": "Cryptech Services",
+    "license": "MIT",
+    "devDependencies": {
+        "@istanbuljs/nyc-config-typescript": "^1.0.2",
+        "@metrixnames/mnslib": "^2.2.0",
+        "@types/locks": "^0.2.1",
+        "@types/mocha": "^10.0.1",
+        "@types/node": "^20.3.1",
+        "@typescript-eslint/eslint-plugin": "^5.23.0",
+        "@typescript-eslint/parser": "^5.23.0",
+        "assert": "^2.0.0",
+        "eslint": "^8.15.0",
+        "mocha": "^10.0.0",
+        "nyc": "^15.1.0",
+        "prettier": "^2.6.2",
+        "source-map-support": "^0.5.21",
+        "ts-node": "^10.8.0",
+        "typedoc": "^0.24.4",
+        "typescript": "4.9.5"
+    },
+    "dependencies": {
+        "@metrixcoin/metrilib": "^1.5.21-beta",
+        "bs58": "^5.0.0",
+        "ethers": "^6.0.3",
+        "locks": "^0.2.2",
+        "node-fetch": "^2.6.1"
+    },
+    "optionalDependencies": {
+        "fsevents": "*"
+    }
+}

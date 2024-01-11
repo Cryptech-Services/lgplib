@@ -1,0 +1,12 @@
+enum ProposalType {
+  NONE,
+  GASSCHEDULE,
+  BLOCKSIZE,
+  MINGASPRICE,
+  BLOCKGASLIMIT,
+  TRANSACTIONFEERATES,
+  COLLATERAL,
+  BUDGETFEE
+}
+
+export default ProposalType;

@@ -2,7 +2,7 @@
 
 # lgplib
 
-lgplib is a dependency is used to interact with the Metrix LGP on the MetrixCoin blockchain.
+lgplib is used to interact with the Metrix LGP on the MetrixCoin blockchain.
 
 ### [**Documentation**](/)
 

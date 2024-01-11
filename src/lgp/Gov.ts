@@ -236,7 +236,7 @@ export default class Gov extends MetrixContract implements IERC721Enumerable {
   /**
    * Safely mints `tokenId` and transfers it to `to`.
    * @param to the EVM style address of the account to mint to
-   * @param amount the uint256 id of the token
+   * @param tokenId the uint256 id of the token
    * @returns {Promise<Transaction>} an array of TransactionReceipt objects
    */
   async safeMint(to: string, tokenId: bigint): Promise<Transaction> {

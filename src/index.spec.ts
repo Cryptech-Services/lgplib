@@ -17,11 +17,6 @@ describe('MNS Labels', () => {
 
   const lgp = getLGPContract(getLGPAddress(network), provider);
 
-  let mnsAddr = ZeroAddress.replace('0x', '');
-  before(async () => {
-    mnsAddr = (await lgp.mns()).toLowerCase().replace('0x', '');
-  });
-
   it(`should have "Metrix LGP" as an address.addr.reverse name`, async () => {
     const lgpAddr = getLGPAddress(network);
     const mns = new MNS(network, provider, getMNSAddress(network));

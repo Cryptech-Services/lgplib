@@ -158,7 +158,7 @@ export default class LiquidGovernorMRX extends MetrixContract implements ERC20 {
   /**
    * Destroys `amount` tokens from the caller.
  
-   * @param account the uint256 id of the token
+   * @param amount the satoshi amount the token
    * @param gasLimit the optional limit for gas units that can be consumed
    * @returns {Promise<Transaction>} an array of TransactionReceipt objects
    */

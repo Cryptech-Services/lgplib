@@ -4,16 +4,10 @@
 
 lgplib is used to interact with the Metrix LGP on the MetrixCoin blockchain.
 
-### [**Documentation**](/)
+### [**Documentation**](https://cryptech-services.github.io/lgplib/)
 
 ### Installation
 
 ```
 npm install --save @cryptech.services/lgplib
-```
-
-### Example Usage
-
-```
-
 ```

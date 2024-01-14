@@ -127,7 +127,7 @@ export default class Pool extends MetrixContract {
    * @returns {Promise<bigint>} the price quote in satoshi
    */
   async quote(from: string, to: string, amountIn: bigint): Promise<bigint> {
-    const q = await this.call(`quote(address,address,amountIn)`, [
+    const q = await this.call(`quote(address,address,uint256)`, [
       from,
       to,
       `0x${amountIn.toString(16)}`

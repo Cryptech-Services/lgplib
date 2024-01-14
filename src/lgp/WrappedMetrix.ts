@@ -180,7 +180,7 @@ export default class WrappedMetrix
     amount: string | undefined = '0',
     gasLimit: number | undefined = 250000
   ): Promise<Transaction> {
-    const tx = await this.send('withdraw()', [], amount, gasLimit, 5000);
+    const tx = await this.send('deposit()', [], amount, gasLimit, 5000);
     const getReceipts = this.provider.getTxReceipts(tx, this.abi, this.address);
     return {
       txid: tx.txid,

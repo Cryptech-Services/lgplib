@@ -3,6 +3,7 @@ export const Pool = [
     inputs: [
       { internalType: 'address', name: '_mrx', type: 'address' },
       { internalType: 'address', name: '_gmrx', type: 'address' },
+      { internalType: 'address', name: '_g', type: 'address' },
       { internalType: 'address', name: '_mns', type: 'address' }
     ],
     stateMutability: 'nonpayable',
@@ -76,6 +77,25 @@ export const Pool = [
       {
         indexed: false,
         internalType: 'uint256',
+        name: 'amountLP',
+        type: 'uint256'
+      }
+    ],
+    name: 'LockedLiquidity',
+    type: 'event'
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'sender',
+        type: 'address'
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
         name: 'amountMRX',
         type: 'uint256'
       },
@@ -133,33 +153,35 @@ export const Pool = [
     type: 'event'
   },
   {
+    anonymous: false,
     inputs: [
       {
-        internalType: 'uint256',
-        name: 'amountMRX',
-        type: 'uint256'
+        indexed: true,
+        internalType: 'address',
+        name: 'sender',
+        type: 'address'
       },
       {
+        indexed: false,
         internalType: 'uint256',
-        name: 'amountGMRX',
+        name: 'amountLP',
         type: 'uint256'
-      },
-      {
-        internalType: 'bool',
-        name: 'allowHighSlippage',
-        type: 'bool'
       }
     ],
-    name: 'addLiquidity',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function'
+    name: 'UnlockedLiquidity',
+    type: 'event'
   },
+  { stateMutability: 'payable', type: 'fallback' },
   {
     inputs: [
       {
         internalType: 'uint256',
         name: 'amountGMRX',
+        type: 'uint256'
+      },
+      {
+        internalType: 'uint256',
+        name: 'minimum',
         type: 'uint256'
       },
       {
@@ -177,7 +199,40 @@ export const Pool = [
     inputs: [
       {
         internalType: 'uint256',
+        name: 'amountMRX',
+        type: 'uint256'
+      },
+      {
+        internalType: 'uint256',
         name: 'amountGMRX',
+        type: 'uint256'
+      },
+      {
+        internalType: 'uint256',
+        name: 'minimum',
+        type: 'uint256'
+      },
+      {
+        internalType: 'bool',
+        name: 'allowHighSlippage',
+        type: 'bool'
+      }
+    ],
+    name: 'addLiquidity',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: 'amountGMRX',
+        type: 'uint256'
+      },
+      {
+        internalType: 'uint256',
+        name: 'minimum',
         type: 'uint256'
       },
       { internalType: 'bool', name: 'unwrapMRX', type: 'bool' }
@@ -189,8 +244,42 @@ export const Pool = [
   },
   {
     inputs: [],
+    name: 'g',
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [],
     name: 'gmrx',
     outputs: [{ internalType: 'address', name: '', type: 'address' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [{ internalType: 'address', name: '', type: 'address' }],
+    name: 'lockCooldown',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: 'amountLP',
+        type: 'uint256'
+      }
+    ],
+    name: 'lockLP',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [{ internalType: 'address', name: '', type: 'address' }],
+    name: 'lockedLP',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'view',
     type: 'function'
   },
@@ -202,30 +291,57 @@ export const Pool = [
     type: 'function'
   },
   {
-    inputs: [],
-    name: 'mrx',
-    outputs: [{ internalType: 'address', name: '', type: 'address' }],
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: 'amountMRX',
+        type: 'uint256'
+      },
+      {
+        internalType: 'uint256',
+        name: 'amountGMRX',
+        type: 'uint256'
+      }
+    ],
+    name: 'lpAddQuote',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: 'amountLP',
+        type: 'uint256'
+      }
+    ],
     stateMutability: 'view',
     type: 'function'
   },
   {
     inputs: [
-      { internalType: 'address', name: 'from', type: 'address' },
-      { internalType: 'address', name: 'to', type: 'address' },
       {
         internalType: 'uint256',
-        name: 'amountIn',
+        name: 'amountLP',
         type: 'uint256'
       }
     ],
-    name: 'quote',
+    name: 'lpRemoveQuote',
     outputs: [
       {
         internalType: 'uint256',
-        name: 'swapQuote',
+        name: 'amountMRX',
+        type: 'uint256'
+      },
+      {
+        internalType: 'uint256',
+        name: 'amountGMRX',
         type: 'uint256'
       }
     ],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [],
+    name: 'mrx',
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
     stateMutability: 'view',
     type: 'function'
   },
@@ -262,7 +378,40 @@ export const Pool = [
     type: 'function'
   },
   {
-    inputs: [{ internalType: 'uint16', name: 'slippage', type: 'uint16' }],
+    inputs: [
+      { internalType: 'address', name: 'from', type: 'address' },
+      { internalType: 'address', name: 'to', type: 'address' },
+      {
+        internalType: 'uint256',
+        name: 'amountIn',
+        type: 'uint256'
+      }
+    ],
+    name: 'swapQuote',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: 'amountOut',
+        type: 'uint256'
+      },
+      {
+        internalType: 'uint256',
+        name: 'slippage',
+        type: 'uint256'
+      }
+    ],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: 'minimum',
+        type: 'uint256'
+      },
+      { internalType: 'uint16', name: 'slippage', type: 'uint16' }
+    ],
     name: 'swapTokens',
     outputs: [],
     stateMutability: 'payable',
@@ -277,11 +426,49 @@ export const Pool = [
       },
       { internalType: 'address', name: 'from', type: 'address' },
       { internalType: 'address', name: 'to', type: 'address' },
-      { internalType: 'uint16', name: 'slippage', type: 'uint16' }
+      {
+        internalType: 'uint256',
+        name: 'minimum',
+        type: 'uint256'
+      },
+      {
+        internalType: 'uint16',
+        name: 'slippage',
+        type: 'uint16'
+      },
+      { internalType: 'bool', name: 'unwrapMRX', type: 'bool' }
     ],
     name: 'swapTokens',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function'
-  }
+  },
+  {
+    inputs: [],
+    name: 'totalLockedLP',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [{ internalType: 'address', name: 'trader', type: 'address' }],
+    name: 'traderDiscount',
+    outputs: [{ internalType: 'bool', name: 'discount', type: 'bool' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: 'amountLP',
+        type: 'uint256'
+      }
+    ],
+    name: 'unlockLP',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  { stateMutability: 'payable', type: 'receive' }
 ];

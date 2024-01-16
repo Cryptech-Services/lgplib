@@ -39,15 +39,11 @@ describe('LiquidityProvider', () => {
     equal(name, 'LiquidGovernance-LP');
   }).timeout(30000);
 
-  /* THIS IS BROKEN ON TESTNET
-
   it('should be have the symbol "LGP-LP"', async () => {
     const lp = new LiquidityProvider(tokenAddr, provider);
     const symbol = await lp.symbol();
     equal(symbol, 'LGP-LP');
   }).timeout(30000);
-  
-  */
 
   it('should be have 18 decimals', async () => {
     const lp = new LiquidityProvider(tokenAddr, provider);

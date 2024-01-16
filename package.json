@@ -1,6 +1,6 @@
 {
     "name": "@cryptech.services/lgplib",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "Library for interacting with the Metrix Liquid Governance Protocol",
     "repository": "Cryptech-Services/lgplib",
     "source": "src/index.ts",

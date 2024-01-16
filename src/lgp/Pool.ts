@@ -9,6 +9,7 @@ export default class Pool extends MetrixContract {
   /**
    * Add liquidity to the pool
    * @param amountGMRX the amount of gMRX to add
+   * @param minimum the minimum amount of LP tokens to receive as wei
    * @param allowHighSlippage allow high slippage that can result in trading fees
    * @param amountMRX the amount of MRX to send with the transaction and add as MRX
    * @param gasLimit the optional limit for gas units that can be consumed
@@ -16,13 +17,18 @@ export default class Pool extends MetrixContract {
    */
   async addLiquidity(
     amountGMRX: bigint,
+    minimum: bigint,
     allowHighSlippage = false,
     amountMRX: string | undefined = '0',
     gasLimit: number | undefined = 250000
   ): Promise<Transaction> {
     const tx = await this.send(
-      'addLiquidity(uint256,bool)',
-      [`0x${amountGMRX.toString(16)}`, allowHighSlippage],
+      'addLiquidity(uint256,uint256,bool)',
+      [
+        `0x${amountGMRX.toString(16)}`,
+        `0x${minimum.toString(16)}`,
+        allowHighSlippage
+      ],
       amountMRX,
       gasLimit,
       5000
@@ -38,6 +44,7 @@ export default class Pool extends MetrixContract {
    * Add liquidity to the pool
    * @param amountMRX the amount of wMRX to add as satoshi
    * @param amountGMRX the amount of gMRX to add as satoshi
+   * @param minimum the minimum amount of LP tokens to receive as wei
    * @param allowHighSlippage allow high slippage that can result in trading fees
    * @param gasLimit the optional limit for gas units that can be consumed
    * @returns {Promise<Transaction>} an array of TransactionReceipt objects
@@ -45,14 +52,16 @@ export default class Pool extends MetrixContract {
   async addWrappedLiquidity(
     amountMRX: bigint,
     amountGMRX: bigint,
+    minimum: bigint,
     allowHighSlippage = false,
     gasLimit: number | undefined = 250000
   ): Promise<Transaction> {
     const tx = await this.send(
-      'addLiquidity(uint256,uint256,bool)',
+      'addLiquidity(uint256,uint256,uint256,bool)',
       [
         `0x${amountMRX.toString(16)}`,
         `0x${amountGMRX.toString(16)}`,
+        `0x${minimum.toString(16)}`,
         allowHighSlippage
       ],
       '0',
@@ -69,18 +78,20 @@ export default class Pool extends MetrixContract {
   /**
    * Burn gMRX releasing wMRX or MRX
    * @param amountGMRX amount of gMRX to burn as satoshi
+   * @param minimum the minimum amount of MRX or wMRX to receive as satoshi
    * @param unwrapMRX unwrap the wMRX to MRX
    * @param gasLimit the optional limit for gas units that can be consumed
    * @returns {Promise<Transaction>} an array of TransactionReceipt objects
    */
   async burnAndRelease(
     amountGMRX: bigint,
+    minimum: bigint,
     unwrapMRX = false,
     gasLimit: number | undefined = 250000
   ): Promise<Transaction> {
     const tx = await this.send(
-      'burnAndRelease(uint256,bool)',
-      [`0x${amountGMRX.toString(16)}`, unwrapMRX],
+      'burnAndRelease(uint256,uint256,bool)',
+      [`0x${amountGMRX.toString(16)}`, `0x${minimum.toString(16)}`, unwrapMRX],
       '0',
       gasLimit,
       5000
@@ -93,12 +104,73 @@ export default class Pool extends MetrixContract {
   }
 
   /**
+   * Get the g contract address
+   * @returns {Promise<string>} the EVM style address of the g contract
+   */
+  async g(): Promise<string> {
+    const t = await this.call(`g()`, []);
+    return t ? t.toString() : '';
+  }
+
+  /**
    * Get the gMRX contract address
    * @returns {Promise<string>} the EVM style address of the gMRX contract
    */
   async gmrx(): Promise<string> {
     const t = await this.call(`gmrx()`, []);
     return t ? t.toString() : '';
+  }
+
+  /**
+   * Get the block number of cooldown for a specific address
+   * @param locker the EVM style address of the locker
+   * @returns {Promise<bigint>} the block number which cooldown ends
+   */
+  async lockCooldown(locker: string): Promise<bigint> {
+    const cooldown = await this.call(`lockCooldown(address)`, [locker]);
+    return !isNaN(Number(cooldown ? cooldown.toString() : undefined))
+      ? BigInt(
+          cooldown!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
+        )
+      : BigInt(0);
+  }
+
+  /**
+   * Lock liquidity in the pool
+   * @param amountLP the amount of LGP-LP to add
+   * @param gasLimit the optional limit for gas units that can be consumed
+   * @returns {Promise<Transaction>} an array of TransactionReceipt objects
+   */
+  async lockLP(
+    amountLP: bigint,
+    gasLimit: number | undefined = 250000
+  ): Promise<Transaction> {
+    const tx = await this.send(
+      'lockLP(uint256)',
+      [`0x${amountLP.toString(16)}`],
+      '0',
+      gasLimit,
+      5000
+    );
+    const getReceipts = this.provider.getTxReceipts(tx, this.abi, this.address);
+    return {
+      txid: tx.txid,
+      getReceipts
+    };
+  }
+
+  /**
+   * Get the amount of LGP-LP locked by a specific address
+   * @param locker the EVM style address of the locker
+   * @returns {Promise<bigint>} the amount of LGP-LP locked as wei
+   */
+  async lockedLP(locker: string): Promise<bigint> {
+    const cooldown = await this.call(`lockedLP(address)`, [locker]);
+    return !isNaN(Number(cooldown ? cooldown.toString() : undefined))
+      ? BigInt(
+          cooldown!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
+        )
+      : BigInt(0);
   }
 
   /**
@@ -117,26 +189,6 @@ export default class Pool extends MetrixContract {
   async mrx(): Promise<string> {
     const t = await this.call(`mrx()`, []);
     return t ? t.toString() : '';
-  }
-
-  /**
-   * Get a quote based on the current reserves in the pool
-   * @param from token to input
-   * @param to token to output
-   * @param amountIn input amount of tokens
-   * @returns {Promise<bigint>} the price quote in satoshi
-   */
-  async quote(from: string, to: string, amountIn: bigint): Promise<bigint> {
-    const q = await this.call(`quote(address,address,uint256)`, [
-      from,
-      to,
-      `0x${amountIn.toString(16)}`
-    ]);
-    return !isNaN(Number(q ? q.toString() : undefined))
-      ? BigInt(
-          q!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
-        )
-      : BigInt(0);
   }
 
   /**
@@ -182,20 +234,49 @@ export default class Pool extends MetrixContract {
   }
 
   /**
+   * Get a swap quote based on the current reserves in the pool
+   * @param from token to input
+   * @param to token to output
+   * @param amountIn input amount of tokens
+   * @returns {Promise<[amountOut: bigint, slippage: bigint]>} the price quote in satoshi and the slippage as basis points
+   */
+  async swapQuote(
+    from: string,
+    to: string,
+    amountIn: bigint
+  ): Promise<[amountOut: bigint, slippage: bigint]> {
+    const q = await this.call(`quote(address,address,uint256)`, [
+      from,
+      to,
+      `0x${amountIn.toString(16)}`
+    ]);
+    if (q && q.length >= 2) {
+      const tup: [amountOut: bigint, slippage: bigint] = [
+        BigInt(q[0].toString()),
+        BigInt(q[1].toString())
+      ];
+      return tup;
+    }
+    return [BigInt(0), BigInt(0)];
+  }
+
+  /**
    * Swap MRX for gMRX, sending MRX and automatically wrapping it
    * @param slippage the allowed amount of slippage as basis points
+   * @param minimum the minimum amount of gMRX tokens to receive as satoshi
    * @param amountMRX amount of MRX to send with the transaction
    * @param gasLimit the optional limit for gas units that can be consumed
    * @returns {Promise<Transaction>} an array of TransactionReceipt objects
    */
   async swapTokens(
+    minimum: bigint,
     slippage: bigint,
     amountMRX: string | undefined = '0',
     gasLimit: number | undefined = 250000
   ): Promise<Transaction> {
     const tx = await this.send(
-      'swapTokens(uint16)',
-      [`0x${slippage.toString(16)}`],
+      'swapTokens(uint256,uint16)',
+      [`0x${minimum.toString(16)}`, `0x${slippage.toString(16)}`],
       amountMRX,
       gasLimit,
       5000
@@ -212,6 +293,7 @@ export default class Pool extends MetrixContract {
    * @param amount the amount of tokens to input
    * @param from the input token
    * @param to the output token
+   * @param minimum the minimum amount of gMRX tokens to receive as satoshi
    * @param slippage the allowed amount of slippage as basis points
    * @param gasLimit the optional limit for gas units that can be consumed
    * @returns {Promise<Transaction>} an array of TransactionReceipt objects
@@ -220,12 +302,66 @@ export default class Pool extends MetrixContract {
     amount: bigint,
     from: string,
     to: string,
+    minimum: bigint,
     slippage: bigint,
     gasLimit: number | undefined = 250000
   ): Promise<Transaction> {
     const tx = await this.send(
       'swapTokens(uint256,address,address,uint16)',
-      [`0x${amount.toString(16)}`, from, to, `0x${slippage.toString(16)}`],
+      [
+        `0x${amount.toString(16)}`,
+        from,
+        to,
+        `0x${minimum.toString(16)}`,
+        `0x${slippage.toString(16)}`
+      ],
+      '0',
+      gasLimit,
+      5000
+    );
+    const getReceipts = this.provider.getTxReceipts(tx, this.abi, this.address);
+    return {
+      txid: tx.txid,
+      getReceipts
+    };
+  }
+
+  /**
+   * Get the total amount of LGP-LP locked in the pool
+   * @returns {Promise<bigint>} the amount of LGP-LP locked as wei
+   */
+  async totalLockedLP(): Promise<bigint> {
+    const locked = await this.call(`totalLockedLP()`, []);
+    return !isNaN(Number(locked ? locked.toString() : undefined))
+      ? BigInt(
+          locked!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
+        )
+      : BigInt(0);
+  }
+
+  /**
+   * Check if a specific trader has swap fee waiver
+   * @param trader the EVM style address of the trader to check
+   * @returns {Promise<boolean>} if the trader a discount
+   */
+  async traderDiscount(trader: string): Promise<boolean> {
+    const hasDiscount = await this.call(`traderDiscount(address)`, [trader]);
+    return hasDiscount ? hasDiscount.toString() === 'true' : false;
+  }
+
+  /**
+   * Unlock liquidity in the pool
+   * @param amountLP the amount of LGP-LP to remove
+   * @param gasLimit the optional limit for gas units that can be consumed
+   * @returns {Promise<Transaction>} an array of TransactionReceipt objects
+   */
+  async unlockLP(
+    amountLP: bigint,
+    gasLimit: number | undefined = 250000
+  ): Promise<Transaction> {
+    const tx = await this.send(
+      'unlockLP(uint256)',
+      [`0x${amountLP.toString(16)}`],
       '0',
       gasLimit,
       5000

@@ -183,6 +183,45 @@ export default class Pool extends MetrixContract {
   }
 
   /**
+   * Get a quote for LP based on the current reserves in the pool
+   * @param amountMRX amount of MRX to add as satoshi
+   * @param amountGMRX amount of gMRX to add as satoshi
+   * @returns {Promise<bigint>} the EVM style address of the LGP-LP contract
+   */
+  async lpAddQuote(amountMRX: bigint, amountGMRX: bigint): Promise<bigint> {
+    const q = await this.call(`lpAddQuote(uint256,uint256)`, [
+      `0x${amountMRX.toString(16)}`,
+      `0x${amountGMRX.toString(16)}`
+    ]);
+    return !isNaN(Number(q ? q.toString() : undefined))
+      ? BigInt(
+          q!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
+        )
+      : BigInt(0);
+  }
+
+  /**
+   * Get a redemption quote based on the current reserves in the pool
+   * @param amountLP amount of LGP-LP to add as wei
+   * @returns {Promise<[amountMRX: bigint, amountGMRX: bigint]>} the amount of MRX and gMRX received as satoshi
+   */
+  async lpRemoveQuote(
+    amountLP: bigint
+  ): Promise<[amountMRX: bigint, amountGMRX: bigint]> {
+    const q = await this.call(`lpRemoveQuote(uint256)`, [
+      `0x${amountLP.toString(16)}`
+    ]);
+    if (q && q.length >= 2) {
+      const tup: [amountMRX: bigint, amountGMRX: bigint] = [
+        BigInt(q[0].toString()),
+        BigInt(q[1].toString())
+      ];
+      return tup;
+    }
+    return [BigInt(0), BigInt(0)];
+  }
+
+  /**
    * Get the wMRX contract address
    * @returns {Promise<string>} the EVM style address of the wMRX contract
    */
@@ -245,7 +284,7 @@ export default class Pool extends MetrixContract {
     to: string,
     amountIn: bigint
   ): Promise<[amountOut: bigint, slippage: bigint]> {
-    const q = await this.call(`quote(address,address,uint256)`, [
+    const q = await this.call(`swapQuote(address,address,uint256)`, [
       from,
       to,
       `0x${amountIn.toString(16)}`

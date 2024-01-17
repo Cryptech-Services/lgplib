@@ -1,9 +1,11 @@
+import { ZeroHash } from 'ethers';
 import ABI from '../abi';
 import {
   IERC20Metadata,
   MetrixContract,
   Provider,
-  Transaction
+  Transaction,
+  TransactionReceipt
 } from '@metrixcoin/metrilib';
 
 export default class WrappedMetrix
@@ -47,20 +49,40 @@ export default class WrappedMetrix
   async approve(
     spender: string,
     amount: bigint,
-    gasLimit: number | undefined = 250000
+    gasLimit: number | undefined = 48690
   ): Promise<Transaction> {
-    const tx = await this.send(
-      'approve(address,uint256)',
-      [spender, `0x${amount.toString(16)}`],
-      '0',
-      gasLimit,
-      5000
-    );
-    const getReceipts = this.provider.getTxReceipts(tx, this.abi, this.address);
-    return {
-      txid: tx.txid,
-      getReceipts
-    };
+    try {
+      const tx = await this.send(
+        'approve(address,uint256)',
+        [spender, `0x${amount.toString(16)}`],
+        '0',
+        gasLimit,
+        6150
+      );
+      const getReceipts = this.provider.getTxReceipts(
+        tx,
+        this.abi,
+        this.address
+      );
+      return {
+        txid: tx.txid,
+        getReceipts
+      };
+    } catch (e) {
+      const getReceipts = async () => {
+        return [] as TransactionReceipt[];
+      };
+      return {
+        txid: ZeroHash.replace('0x', ''),
+        getReceipts: getReceipts(),
+        error: {
+          message: (e as any).message
+            ? (e as any).message
+            : 'An unknown error occurred',
+          code: (e as any).code ? (e as any).code : undefined
+        }
+      };
+    }
   }
 
   async balanceOf(owner: string): Promise<bigint> {
@@ -86,18 +108,38 @@ export default class WrappedMetrix
     amount: bigint,
     gasLimit: number | undefined = 250000
   ): Promise<Transaction> {
-    const tx = await this.send(
-      'transfer(address,uint256)',
-      [recipient, `0x${amount.toString(16)}`],
-      '0',
-      gasLimit,
-      5000
-    );
-    const getReceipts = this.provider.getTxReceipts(tx, this.abi, this.address);
-    return {
-      txid: tx.txid,
-      getReceipts
-    };
+    try {
+      const tx = await this.send(
+        'transfer(address,uint256)',
+        [recipient, `0x${amount.toString(16)}`],
+        '0',
+        gasLimit,
+        5000
+      );
+      const getReceipts = this.provider.getTxReceipts(
+        tx,
+        this.abi,
+        this.address
+      );
+      return {
+        txid: tx.txid,
+        getReceipts
+      };
+    } catch (e) {
+      const getReceipts = async () => {
+        return [] as TransactionReceipt[];
+      };
+      return {
+        txid: ZeroHash.replace('0x', ''),
+        getReceipts: getReceipts(),
+        error: {
+          message: (e as any).message
+            ? (e as any).message
+            : 'An unknown error occurred',
+          code: (e as any).code ? (e as any).code : undefined
+        }
+      };
+    }
   }
 
   async transferFrom(
@@ -106,18 +148,38 @@ export default class WrappedMetrix
     amount: bigint,
     gasLimit: number | undefined = 250000
   ): Promise<Transaction> {
-    const tx = await this.send(
-      'transferFrom(address,uint256)',
-      [sender, recipient, `0x${amount.toString(16)}`],
-      '0',
-      gasLimit,
-      5000
-    );
-    const getReceipts = this.provider.getTxReceipts(tx, this.abi, this.address);
-    return {
-      txid: tx.txid,
-      getReceipts
-    };
+    try {
+      const tx = await this.send(
+        'transferFrom(address,uint256)',
+        [sender, recipient, `0x${amount.toString(16)}`],
+        '0',
+        gasLimit,
+        5000
+      );
+      const getReceipts = this.provider.getTxReceipts(
+        tx,
+        this.abi,
+        this.address
+      );
+      return {
+        txid: tx.txid,
+        getReceipts
+      };
+    } catch (e) {
+      const getReceipts = async () => {
+        return [] as TransactionReceipt[];
+      };
+      return {
+        txid: ZeroHash.replace('0x', ''),
+        getReceipts: getReceipts(),
+        error: {
+          message: (e as any).message
+            ? (e as any).message
+            : 'An unknown error occurred',
+          code: (e as any).code ? (e as any).code : undefined
+        }
+      };
+    }
   }
 
   /**
@@ -130,18 +192,38 @@ export default class WrappedMetrix
     amount: bigint,
     gasLimit: number | undefined = 250000
   ): Promise<Transaction> {
-    const tx = await this.send(
-      'burn(uint256)',
-      [`0x${amount.toString(16)}`],
-      '0',
-      gasLimit,
-      5000
-    );
-    const getReceipts = this.provider.getTxReceipts(tx, this.abi, this.address);
-    return {
-      txid: tx.txid,
-      getReceipts
-    };
+    try {
+      const tx = await this.send(
+        'burn(uint256)',
+        [`0x${amount.toString(16)}`],
+        '0',
+        gasLimit,
+        5000
+      );
+      const getReceipts = this.provider.getTxReceipts(
+        tx,
+        this.abi,
+        this.address
+      );
+      return {
+        txid: tx.txid,
+        getReceipts
+      };
+    } catch (e) {
+      const getReceipts = async () => {
+        return [] as TransactionReceipt[];
+      };
+      return {
+        txid: ZeroHash.replace('0x', ''),
+        getReceipts: getReceipts(),
+        error: {
+          message: (e as any).message
+            ? (e as any).message
+            : 'An unknown error occurred',
+          code: (e as any).code ? (e as any).code : undefined
+        }
+      };
+    }
   }
 
   /**
@@ -157,18 +239,38 @@ export default class WrappedMetrix
     amount: bigint,
     gasLimit: number | undefined = 250000
   ): Promise<Transaction> {
-    const tx = await this.send(
-      'burnFrom(address,uint256)',
-      [account, `0x${amount.toString(16)}`],
-      '0',
-      gasLimit,
-      5000
-    );
-    const getReceipts = this.provider.getTxReceipts(tx, this.abi, this.address);
-    return {
-      txid: tx.txid,
-      getReceipts
-    };
+    try {
+      const tx = await this.send(
+        'burnFrom(address,uint256)',
+        [account, `0x${amount.toString(16)}`],
+        '0',
+        gasLimit,
+        5000
+      );
+      const getReceipts = this.provider.getTxReceipts(
+        tx,
+        this.abi,
+        this.address
+      );
+      return {
+        txid: tx.txid,
+        getReceipts
+      };
+    } catch (e) {
+      const getReceipts = async () => {
+        return [] as TransactionReceipt[];
+      };
+      return {
+        txid: ZeroHash.replace('0x', ''),
+        getReceipts: getReceipts(),
+        error: {
+          message: (e as any).message
+            ? (e as any).message
+            : 'An unknown error occurred',
+          code: (e as any).code ? (e as any).code : undefined
+        }
+      };
+    }
   }
 
   /**
@@ -180,12 +282,32 @@ export default class WrappedMetrix
     amount: string | undefined = '0',
     gasLimit: number | undefined = 250000
   ): Promise<Transaction> {
-    const tx = await this.send('deposit()', [], amount, gasLimit, 5000);
-    const getReceipts = this.provider.getTxReceipts(tx, this.abi, this.address);
-    return {
-      txid: tx.txid,
-      getReceipts
-    };
+    try {
+      const tx = await this.send('deposit()', [], amount, gasLimit, 5000);
+      const getReceipts = this.provider.getTxReceipts(
+        tx,
+        this.abi,
+        this.address
+      );
+      return {
+        txid: tx.txid,
+        getReceipts
+      };
+    } catch (e) {
+      const getReceipts = async () => {
+        return [] as TransactionReceipt[];
+      };
+      return {
+        txid: ZeroHash.replace('0x', ''),
+        getReceipts: getReceipts(),
+        error: {
+          message: (e as any).message
+            ? (e as any).message
+            : 'An unknown error occurred',
+          code: (e as any).code ? (e as any).code : undefined
+        }
+      };
+    }
   }
 
   /**
@@ -199,17 +321,37 @@ export default class WrappedMetrix
     amount: bigint,
     gasLimit: number | undefined = 250000
   ): Promise<Transaction> {
-    const tx = await this.send(
-      'withdraw(uint256)',
-      [`0x${amount.toString(16)}`],
-      '0',
-      gasLimit,
-      5000
-    );
-    const getReceipts = this.provider.getTxReceipts(tx, this.abi, this.address);
-    return {
-      txid: tx.txid,
-      getReceipts
-    };
+    try {
+      const tx = await this.send(
+        'withdraw(uint256)',
+        [`0x${amount.toString(16)}`],
+        '0',
+        gasLimit,
+        5000
+      );
+      const getReceipts = this.provider.getTxReceipts(
+        tx,
+        this.abi,
+        this.address
+      );
+      return {
+        txid: tx.txid,
+        getReceipts
+      };
+    } catch (e) {
+      const getReceipts = async () => {
+        return [] as TransactionReceipt[];
+      };
+      return {
+        txid: ZeroHash.replace('0x', ''),
+        getReceipts: getReceipts(),
+        error: {
+          message: (e as any).message
+            ? (e as any).message
+            : 'An unknown error occurred',
+          code: (e as any).code ? (e as any).code : undefined
+        }
+      };
+    }
   }
 }

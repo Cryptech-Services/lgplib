@@ -1,6 +1,6 @@
 {
     "name": "@cryptech.services/lgplib",
-    "version": "1.0.1",
+    "version": "1.0.5",
     "description": "Library for interacting with the Metrix Liquid Governance Protocol",
     "repository": "Cryptech-Services/lgplib",
     "source": "src/index.ts",
@@ -60,7 +60,7 @@
         "typescript": "5.3.3"
     },
     "dependencies": {
-        "@metrixcoin/metrilib": "^1.5.21-beta",
+        "@metrixcoin/metrilib": "^1.5.22-beta",
         "bs58": "^5.0.0",
         "ethers": "^6.0.3",
         "locks": "^0.2.2"

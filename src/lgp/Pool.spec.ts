@@ -46,4 +46,14 @@ describe('Pool', () => {
       address2.replace('0x', '').toLowerCase()
     );
   }).timeout(30000);
+
+  it('should match the LiquidGovernance address for Gov', async () => {
+    const pool = new Pool(poolAddr, provider);
+    const address1: string = await lgp.g();
+    const address2: string = await pool.g();
+    equal(
+      address1.replace('0x', '').toLowerCase(),
+      address2.replace('0x', '').toLowerCase()
+    );
+  }).timeout(30000);
 });

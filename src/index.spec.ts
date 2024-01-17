@@ -87,7 +87,7 @@ describe('MNS Labels', () => {
     equal(name, 'Metrix LGP:Gov (g)');
   }).timeout(30000);
 
-  it(`should have "Metrix LGP:Pool" as an address.addr.reverse name`, async () => {
+  it(`should have "Metrix LGP:Pool wMRX/gMRX" as an address.addr.reverse name`, async () => {
     const poolAddr = (await lgp.pool()).toLowerCase().replace('0x', '');
     const mns = new MNS(network, provider, getMNSAddress(network));
     const lookup = `${poolAddr}.addr.reverse`;
@@ -119,7 +119,7 @@ describe('MNS Labels', () => {
     })(provider);
 
     const name = await resolver.name(mnsName.hash);
-    equal(name, 'Metrix LGP:Pool');
+    equal(name, 'Metrix LGP:Pool wMRX/gMRX');
   }).timeout(30000);
 
   it(`should have "Wrapped Metrix (wMRX)" as an address.addr.reverse name`, async () => {
@@ -157,7 +157,7 @@ describe('MNS Labels', () => {
     equal(name, 'Wrapped Metrix (wMRX)');
   }).timeout(30000);
 
-  it(`should have "Metrix LGP:Liquid Governor MRX (gMRX)" as an address.addr.reverse name`, async () => {
+  it(`should have "Metrix LGP:Liquid Governor Metrix (gMRX)" as an address.addr.reverse name`, async () => {
     const gmrxAddr = (await lgp.gmrx()).toLowerCase().replace('0x', '');
     const mns = new MNS(network, provider, getMNSAddress(network));
     const lookup = `${gmrxAddr}.addr.reverse`;
@@ -189,7 +189,7 @@ describe('MNS Labels', () => {
     })(provider);
 
     const name = await resolver.name(mnsName.hash);
-    equal(name, 'Metrix LGP:Liquid Governor MRX (gMRX)');
+    equal(name, 'Metrix LGP:Liquid Governor Metrix (gMRX)');
   }).timeout(30000);
 
   it(`should have "Metrix LGP:LiquidGovernance-LP (LGP-LP)" as an address.addr.reverse name`, async () => {

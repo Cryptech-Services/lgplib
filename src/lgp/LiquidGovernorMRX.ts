@@ -1,9 +1,11 @@
+import { ZeroHash } from 'ethers';
 import ABI from '../abi';
 import {
   ERC20,
   MetrixContract,
   Provider,
-  Transaction
+  Transaction,
+  TransactionReceipt
 } from '@metrixcoin/metrilib';
 
 export default class LiquidGovernorMRX extends MetrixContract implements ERC20 {
@@ -15,18 +17,38 @@ export default class LiquidGovernorMRX extends MetrixContract implements ERC20 {
     amount: bigint,
     gasLimit: number | undefined = 250000
   ): Promise<Transaction> {
-    const tx = await this.send(
-      'increaseAllowance(address,uint256)',
-      [spender, `0x${amount.toString(16)}`],
-      '0',
-      gasLimit,
-      5000
-    );
-    const getReceipts = this.provider.getTxReceipts(tx, this.abi, this.address);
-    return {
-      txid: tx.txid,
-      getReceipts
-    };
+    try {
+      const tx = await this.send(
+        'increaseAllowance(address,uint256)',
+        [spender, `0x${amount.toString(16)}`],
+        '0',
+        gasLimit,
+        5000
+      );
+      const getReceipts = this.provider.getTxReceipts(
+        tx,
+        this.abi,
+        this.address
+      );
+      return {
+        txid: tx.txid,
+        getReceipts
+      };
+    } catch (e) {
+      const getReceipts = async () => {
+        return [] as TransactionReceipt[];
+      };
+      return {
+        txid: ZeroHash.replace('0x', ''),
+        getReceipts: getReceipts(),
+        error: {
+          message: (e as any).message
+            ? (e as any).message
+            : 'An unknown error occurred',
+          code: (e as any).code ? (e as any).code : undefined
+        }
+      };
+    }
   }
 
   async decreaseAllowance(
@@ -34,18 +56,38 @@ export default class LiquidGovernorMRX extends MetrixContract implements ERC20 {
     amount: bigint,
     gasLimit: number | undefined = 250000
   ): Promise<Transaction> {
-    const tx = await this.send(
-      'decreaseAllowance(address,uint256)',
-      [spender, `0x${amount.toString(16)}`],
-      '0',
-      gasLimit,
-      5000
-    );
-    const getReceipts = this.provider.getTxReceipts(tx, this.abi, this.address);
-    return {
-      txid: tx.txid,
-      getReceipts
-    };
+    try {
+      const tx = await this.send(
+        'decreaseAllowance(address,uint256)',
+        [spender, `0x${amount.toString(16)}`],
+        '0',
+        gasLimit,
+        5000
+      );
+      const getReceipts = this.provider.getTxReceipts(
+        tx,
+        this.abi,
+        this.address
+      );
+      return {
+        txid: tx.txid,
+        getReceipts
+      };
+    } catch (e) {
+      const getReceipts = async () => {
+        return [] as TransactionReceipt[];
+      };
+      return {
+        txid: ZeroHash.replace('0x', ''),
+        getReceipts: getReceipts(),
+        error: {
+          message: (e as any).message
+            ? (e as any).message
+            : 'An unknown error occurred',
+          code: (e as any).code ? (e as any).code : undefined
+        }
+      };
+    }
   }
 
   async name(): Promise<string> {
@@ -82,20 +124,40 @@ export default class LiquidGovernorMRX extends MetrixContract implements ERC20 {
   async approve(
     spender: string,
     amount: bigint,
-    gasLimit: number | undefined = 250000
+    gasLimit: number | undefined = 48659
   ): Promise<Transaction> {
-    const tx = await this.send(
-      'approve(address,uint256)',
-      [spender, `0x${amount.toString(16)}`],
-      '0',
-      gasLimit,
-      5000
-    );
-    const getReceipts = this.provider.getTxReceipts(tx, this.abi, this.address);
-    return {
-      txid: tx.txid,
-      getReceipts
-    };
+    try {
+      const tx = await this.send(
+        'approve(address,uint256)',
+        [spender, `0x${amount.toString(16)}`],
+        '0',
+        gasLimit,
+        6150
+      );
+      const getReceipts = this.provider.getTxReceipts(
+        tx,
+        this.abi,
+        this.address
+      );
+      return {
+        txid: tx.txid,
+        getReceipts
+      };
+    } catch (e) {
+      const getReceipts = async () => {
+        return [] as TransactionReceipt[];
+      };
+      return {
+        txid: ZeroHash.replace('0x', ''),
+        getReceipts: getReceipts(),
+        error: {
+          message: (e as any).message
+            ? (e as any).message
+            : 'An unknown error occurred',
+          code: (e as any).code ? (e as any).code : undefined
+        }
+      };
+    }
   }
 
   async balanceOf(owner: string): Promise<bigint> {
@@ -121,18 +183,38 @@ export default class LiquidGovernorMRX extends MetrixContract implements ERC20 {
     amount: bigint,
     gasLimit: number | undefined = 250000
   ): Promise<Transaction> {
-    const tx = await this.send(
-      'transfer(address,uint256)',
-      [recipient, `0x${amount.toString(16)}`],
-      '0',
-      gasLimit,
-      5000
-    );
-    const getReceipts = this.provider.getTxReceipts(tx, this.abi, this.address);
-    return {
-      txid: tx.txid,
-      getReceipts
-    };
+    try {
+      const tx = await this.send(
+        'transfer(address,uint256)',
+        [recipient, `0x${amount.toString(16)}`],
+        '0',
+        gasLimit,
+        5000
+      );
+      const getReceipts = this.provider.getTxReceipts(
+        tx,
+        this.abi,
+        this.address
+      );
+      return {
+        txid: tx.txid,
+        getReceipts
+      };
+    } catch (e) {
+      const getReceipts = async () => {
+        return [] as TransactionReceipt[];
+      };
+      return {
+        txid: ZeroHash.replace('0x', ''),
+        getReceipts: getReceipts(),
+        error: {
+          message: (e as any).message
+            ? (e as any).message
+            : 'An unknown error occurred',
+          code: (e as any).code ? (e as any).code : undefined
+        }
+      };
+    }
   }
 
   async transferFrom(
@@ -141,18 +223,38 @@ export default class LiquidGovernorMRX extends MetrixContract implements ERC20 {
     amount: bigint,
     gasLimit: number | undefined = 250000
   ): Promise<Transaction> {
-    const tx = await this.send(
-      'transferFrom(address,uint256)',
-      [sender, recipient, `0x${amount.toString(16)}`],
-      '0',
-      gasLimit,
-      5000
-    );
-    const getReceipts = this.provider.getTxReceipts(tx, this.abi, this.address);
-    return {
-      txid: tx.txid,
-      getReceipts
-    };
+    try {
+      const tx = await this.send(
+        'transferFrom(address,uint256)',
+        [sender, recipient, `0x${amount.toString(16)}`],
+        '0',
+        gasLimit,
+        5000
+      );
+      const getReceipts = this.provider.getTxReceipts(
+        tx,
+        this.abi,
+        this.address
+      );
+      return {
+        txid: tx.txid,
+        getReceipts
+      };
+    } catch (e) {
+      const getReceipts = async () => {
+        return [] as TransactionReceipt[];
+      };
+      return {
+        txid: ZeroHash.replace('0x', ''),
+        getReceipts: getReceipts(),
+        error: {
+          message: (e as any).message
+            ? (e as any).message
+            : 'An unknown error occurred',
+          code: (e as any).code ? (e as any).code : undefined
+        }
+      };
+    }
   }
 
   /**
@@ -166,18 +268,38 @@ export default class LiquidGovernorMRX extends MetrixContract implements ERC20 {
     amount: bigint,
     gasLimit: number | undefined = 250000
   ): Promise<Transaction> {
-    const tx = await this.send(
-      'burn(uint256)',
-      [`0x${amount.toString(16)}`],
-      '0',
-      gasLimit,
-      5000
-    );
-    const getReceipts = this.provider.getTxReceipts(tx, this.abi, this.address);
-    return {
-      txid: tx.txid,
-      getReceipts
-    };
+    try {
+      const tx = await this.send(
+        'burn(uint256)',
+        [`0x${amount.toString(16)}`],
+        '0',
+        gasLimit,
+        5000
+      );
+      const getReceipts = this.provider.getTxReceipts(
+        tx,
+        this.abi,
+        this.address
+      );
+      return {
+        txid: tx.txid,
+        getReceipts
+      };
+    } catch (e) {
+      const getReceipts = async () => {
+        return [] as TransactionReceipt[];
+      };
+      return {
+        txid: ZeroHash.replace('0x', ''),
+        getReceipts: getReceipts(),
+        error: {
+          message: (e as any).message
+            ? (e as any).message
+            : 'An unknown error occurred',
+          code: (e as any).code ? (e as any).code : undefined
+        }
+      };
+    }
   }
 
   /**
@@ -193,18 +315,38 @@ export default class LiquidGovernorMRX extends MetrixContract implements ERC20 {
     amount: bigint,
     gasLimit: number | undefined = 250000
   ): Promise<Transaction> {
-    const tx = await this.send(
-      'burnFrom(address,uint256)',
-      [account, `0x${amount.toString(16)}`],
-      '0',
-      gasLimit,
-      5000
-    );
-    const getReceipts = this.provider.getTxReceipts(tx, this.abi, this.address);
-    return {
-      txid: tx.txid,
-      getReceipts
-    };
+    try {
+      const tx = await this.send(
+        'burnFrom(address,uint256)',
+        [account, `0x${amount.toString(16)}`],
+        '0',
+        gasLimit,
+        5000
+      );
+      const getReceipts = this.provider.getTxReceipts(
+        tx,
+        this.abi,
+        this.address
+      );
+      return {
+        txid: tx.txid,
+        getReceipts
+      };
+    } catch (e) {
+      const getReceipts = async () => {
+        return [] as TransactionReceipt[];
+      };
+      return {
+        txid: ZeroHash.replace('0x', ''),
+        getReceipts: getReceipts(),
+        error: {
+          message: (e as any).message
+            ? (e as any).message
+            : 'An unknown error occurred',
+          code: (e as any).code ? (e as any).code : undefined
+        }
+      };
+    }
   }
 
   /**
@@ -248,17 +390,37 @@ export default class LiquidGovernorMRX extends MetrixContract implements ERC20 {
     amount: bigint,
     data: string
   ): Promise<Transaction> {
-    const tx = await this.send('flashLoan(address,uint256)', [
-      receiver,
-      token,
-      `0x${amount.toString(16)}`,
-      data
-    ]);
-    const getReceipts = this.provider.getTxReceipts(tx, this.abi, this.address);
-    return {
-      txid: tx.txid,
-      getReceipts
-    };
+    try {
+      const tx = await this.send('flashLoan(address,uint256)', [
+        receiver,
+        token,
+        `0x${amount.toString(16)}`,
+        data
+      ]);
+      const getReceipts = this.provider.getTxReceipts(
+        tx,
+        this.abi,
+        this.address
+      );
+      return {
+        txid: tx.txid,
+        getReceipts
+      };
+    } catch (e) {
+      const getReceipts = async () => {
+        return [] as TransactionReceipt[];
+      };
+      return {
+        txid: ZeroHash.replace('0x', ''),
+        getReceipts: getReceipts(),
+        error: {
+          message: (e as any).message
+            ? (e as any).message
+            : 'An unknown error occurred',
+          code: (e as any).code ? (e as any).code : undefined
+        }
+      };
+    }
   }
 
   /**
@@ -282,15 +444,35 @@ export default class LiquidGovernorMRX extends MetrixContract implements ERC20 {
    * @returns {Promise<Transaction>} an array of TransactionReceipt objects
    */
   async mint(to: string, amount: bigint): Promise<Transaction> {
-    const tx = await this.send('mint(address,uint256)', [
-      to,
-      `0x${amount.toString(16)}`
-    ]);
-    const getReceipts = this.provider.getTxReceipts(tx, this.abi, this.address);
-    return {
-      txid: tx.txid,
-      getReceipts
-    };
+    try {
+      const tx = await this.send('mint(address,uint256)', [
+        to,
+        `0x${amount.toString(16)}`
+      ]);
+      const getReceipts = this.provider.getTxReceipts(
+        tx,
+        this.abi,
+        this.address
+      );
+      return {
+        txid: tx.txid,
+        getReceipts
+      };
+    } catch (e) {
+      const getReceipts = async () => {
+        return [] as TransactionReceipt[];
+      };
+      return {
+        txid: ZeroHash.replace('0x', ''),
+        getReceipts: getReceipts(),
+        error: {
+          message: (e as any).message
+            ? (e as any).message
+            : 'An unknown error occurred',
+          code: (e as any).code ? (e as any).code : undefined
+        }
+      };
+    }
   }
 
   /**
@@ -307,12 +489,32 @@ export default class LiquidGovernorMRX extends MetrixContract implements ERC20 {
    * @returns {Promise<Transaction>} an array of TransactionReceipt objects
    */
   async renounceOwnership(): Promise<Transaction> {
-    const tx = await this.send('renounceOwnership()', []);
-    const getReceipts = this.provider.getTxReceipts(tx, this.abi, this.address);
-    return {
-      txid: tx.txid,
-      getReceipts
-    };
+    try {
+      const tx = await this.send('renounceOwnership()', []);
+      const getReceipts = this.provider.getTxReceipts(
+        tx,
+        this.abi,
+        this.address
+      );
+      return {
+        txid: tx.txid,
+        getReceipts
+      };
+    } catch (e) {
+      const getReceipts = async () => {
+        return [] as TransactionReceipt[];
+      };
+      return {
+        txid: ZeroHash.replace('0x', ''),
+        getReceipts: getReceipts(),
+        error: {
+          message: (e as any).message
+            ? (e as any).message
+            : 'An unknown error occurred',
+          code: (e as any).code ? (e as any).code : undefined
+        }
+      };
+    }
   }
 
   /**
@@ -321,11 +523,31 @@ export default class LiquidGovernorMRX extends MetrixContract implements ERC20 {
    * @returns {Promise<Transaction>} an array of TransactionReceipt objects
    */
   async transferOwnership(address: string): Promise<Transaction> {
-    const tx = await this.send('transferOwnership(address)', [address]);
-    const getReceipts = this.provider.getTxReceipts(tx, this.abi, this.address);
-    return {
-      txid: tx.txid,
-      getReceipts
-    };
+    try {
+      const tx = await this.send('transferOwnership(address)', [address]);
+      const getReceipts = this.provider.getTxReceipts(
+        tx,
+        this.abi,
+        this.address
+      );
+      return {
+        txid: tx.txid,
+        getReceipts
+      };
+    } catch (e) {
+      const getReceipts = async () => {
+        return [] as TransactionReceipt[];
+      };
+      return {
+        txid: ZeroHash.replace('0x', ''),
+        getReceipts: getReceipts(),
+        error: {
+          message: (e as any).message
+            ? (e as any).message
+            : 'An unknown error occurred',
+          code: (e as any).code ? (e as any).code : undefined
+        }
+      };
+    }
   }
 }

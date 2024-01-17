@@ -1,6 +1,12 @@
+import { ZeroHash } from 'ethers';
 import ABI from '../abi';
 import { ProposalType, Vote } from '../enum';
-import { MetrixContract, Provider, Transaction } from '@metrixcoin/metrilib';
+import {
+  MetrixContract,
+  Provider,
+  Transaction,
+  TransactionReceipt
+} from '@metrixcoin/metrilib';
 
 export default class LiquidGovernance extends MetrixContract {
   constructor(address: string, provider: Provider) {
@@ -21,22 +27,42 @@ export default class LiquidGovernance extends MetrixContract {
     proposalAddress: string,
     gasLimit: number | undefined = 250000
   ): Promise<Transaction> {
-    const tx = await this.send(
-      'addProposal(address,uint8,address)',
-      [
-        governorAddress,
-        `0x${BigInt(proposalType).toString(16)}`,
-        proposalAddress
-      ],
-      '0',
-      gasLimit,
-      5000
-    );
-    const getReceipts = this.provider.getTxReceipts(tx, this.abi, this.address);
-    return {
-      txid: tx.txid,
-      getReceipts
-    };
+    try {
+      const tx = await this.send(
+        'addProposal(address,uint8,address)',
+        [
+          governorAddress,
+          `0x${BigInt(proposalType).toString(16)}`,
+          proposalAddress
+        ],
+        '0',
+        gasLimit,
+        5000
+      );
+      const getReceipts = this.provider.getTxReceipts(
+        tx,
+        this.abi,
+        this.address
+      );
+      return {
+        txid: tx.txid,
+        getReceipts
+      };
+    } catch (e) {
+      const getReceipts = async () => {
+        return [] as TransactionReceipt[];
+      };
+      return {
+        txid: ZeroHash.replace('0x', ''),
+        getReceipts: getReceipts(),
+        error: {
+          message: (e as any).message
+            ? (e as any).message
+            : 'An unknown error occurred',
+          code: (e as any).code ? (e as any).code : undefined
+        }
+      };
+    }
   }
 
   /**
@@ -47,22 +73,41 @@ export default class LiquidGovernance extends MetrixContract {
    */
   async createGovernor(
     collateral: string | undefined = '0',
-    gasLimit: number | undefined = 1319530
+    gasLimit: number | undefined = 1340393
   ): Promise<Transaction> {
-    const tx = await this.send(
-      'createGovernor()',
-      [],
-      collateral,
-      gasLimit,
-      5000
-    );
-    const getReceipts = this.provider.getTxReceipts(tx, this.abi, this.address);
-    return {
-      txid: tx.txid,
-      getReceipts
-    };
+    try {
+      const tx = await this.send(
+        'createGovernor()',
+        [],
+        collateral,
+        gasLimit,
+        5000
+      );
+      const getReceipts = this.provider.getTxReceipts(
+        tx,
+        this.abi,
+        this.address
+      );
+      return {
+        txid: tx.txid,
+        getReceipts
+      };
+    } catch (e) {
+      const getReceipts = async () => {
+        return [] as TransactionReceipt[];
+      };
+      return {
+        txid: ZeroHash.replace('0x', ''),
+        getReceipts: getReceipts(),
+        error: {
+          message: (e as any).message
+            ? (e as any).message
+            : 'An unknown error occurred',
+          code: (e as any).code ? (e as any).code : undefined
+        }
+      };
+    }
   }
-
   /**
    * Get the g contract address
    * @returns {Promise<string>} the EVM style address of the g contract
@@ -118,18 +163,38 @@ export default class LiquidGovernance extends MetrixContract {
     governorAddress: string,
     gasLimit: number | undefined = 250000
   ): Promise<Transaction> {
-    const tx = await this.send(
-      'ping(address)',
-      [governorAddress],
-      '0',
-      gasLimit,
-      5000
-    );
-    const getReceipts = this.provider.getTxReceipts(tx, this.abi, this.address);
-    return {
-      txid: tx.txid,
-      getReceipts
-    };
+    try {
+      const tx = await this.send(
+        'ping(address)',
+        [governorAddress],
+        '0',
+        gasLimit,
+        5000
+      );
+      const getReceipts = this.provider.getTxReceipts(
+        tx,
+        this.abi,
+        this.address
+      );
+      return {
+        txid: tx.txid,
+        getReceipts
+      };
+    } catch (e) {
+      const getReceipts = async () => {
+        return [] as TransactionReceipt[];
+      };
+      return {
+        txid: ZeroHash.replace('0x', ''),
+        getReceipts: getReceipts(),
+        error: {
+          message: (e as any).message
+            ? (e as any).message
+            : 'An unknown error occurred',
+          code: (e as any).code ? (e as any).code : undefined
+        }
+      };
+    }
   }
 
   /**
@@ -162,25 +227,45 @@ export default class LiquidGovernance extends MetrixContract {
     collateral: string | undefined = '0',
     gasLimit: number | undefined = 250000
   ): Promise<Transaction> {
-    const tx = await this.send(
-      'startProposal(address,string,string,string,uint256,uint8)',
-      [
-        governorAddress,
-        title,
-        description,
-        url,
-        `0x${requested.toString(16)}`,
-        `0x${duration.toString(16)}`
-      ],
-      collateral,
-      gasLimit,
-      5000
-    );
-    const getReceipts = this.provider.getTxReceipts(tx, this.abi, this.address);
-    return {
-      txid: tx.txid,
-      getReceipts
-    };
+    try {
+      const tx = await this.send(
+        'startProposal(address,string,string,string,uint256,uint8)',
+        [
+          governorAddress,
+          title,
+          description,
+          url,
+          `0x${requested.toString(16)}`,
+          `0x${duration.toString(16)}`
+        ],
+        collateral,
+        gasLimit,
+        5000
+      );
+      const getReceipts = this.provider.getTxReceipts(
+        tx,
+        this.abi,
+        this.address
+      );
+      return {
+        txid: tx.txid,
+        getReceipts
+      };
+    } catch (e) {
+      const getReceipts = async () => {
+        return [] as TransactionReceipt[];
+      };
+      return {
+        txid: ZeroHash.replace('0x', ''),
+        getReceipts: getReceipts(),
+        error: {
+          message: (e as any).message
+            ? (e as any).message
+            : 'An unknown error occurred',
+          code: (e as any).code ? (e as any).code : undefined
+        }
+      };
+    }
   }
 
   /**
@@ -193,18 +278,38 @@ export default class LiquidGovernance extends MetrixContract {
     governorAddress: string,
     gasLimit: number | undefined = 250000
   ): Promise<Transaction> {
-    const tx = await this.send(
-      'unenroll(address,bool)',
-      [governorAddress, false],
-      '0',
-      gasLimit,
-      5000
-    );
-    const getReceipts = this.provider.getTxReceipts(tx, this.abi, this.address);
-    return {
-      txid: tx.txid,
-      getReceipts
-    };
+    try {
+      const tx = await this.send(
+        'unenroll(address,bool)',
+        [governorAddress, false],
+        '0',
+        gasLimit,
+        5000
+      );
+      const getReceipts = this.provider.getTxReceipts(
+        tx,
+        this.abi,
+        this.address
+      );
+      return {
+        txid: tx.txid,
+        getReceipts
+      };
+    } catch (e) {
+      const getReceipts = async () => {
+        return [] as TransactionReceipt[];
+      };
+      return {
+        txid: ZeroHash.replace('0x', ''),
+        getReceipts: getReceipts(),
+        error: {
+          message: (e as any).message
+            ? (e as any).message
+            : 'An unknown error occurred',
+          code: (e as any).code ? (e as any).code : undefined
+        }
+      };
+    }
   }
 
   /**
@@ -221,21 +326,41 @@ export default class LiquidGovernance extends MetrixContract {
     vote: Vote,
     gasLimit: number | undefined = 250000
   ): Promise<Transaction> {
-    const tx = await this.send(
-      'voteForProposal(address,uint8,uint8)',
-      [
-        governorAddress,
-        `0x${proposalId.toString(16)}`,
-        `0x${vote.toString(16)}`
-      ],
-      '0',
-      gasLimit,
-      5000
-    );
-    const getReceipts = this.provider.getTxReceipts(tx, this.abi, this.address);
-    return {
-      txid: tx.txid,
-      getReceipts
-    };
+    try {
+      const tx = await this.send(
+        'voteForProposal(address,uint8,uint8)',
+        [
+          governorAddress,
+          `0x${proposalId.toString(16)}`,
+          `0x${vote.toString(16)}`
+        ],
+        '0',
+        gasLimit,
+        5000
+      );
+      const getReceipts = this.provider.getTxReceipts(
+        tx,
+        this.abi,
+        this.address
+      );
+      return {
+        txid: tx.txid,
+        getReceipts
+      };
+    } catch (e) {
+      const getReceipts = async () => {
+        return [] as TransactionReceipt[];
+      };
+      return {
+        txid: ZeroHash.replace('0x', ''),
+        getReceipts: getReceipts(),
+        error: {
+          message: (e as any).message
+            ? (e as any).message
+            : 'An unknown error occurred',
+          code: (e as any).code ? (e as any).code : undefined
+        }
+      };
+    }
   }
 }

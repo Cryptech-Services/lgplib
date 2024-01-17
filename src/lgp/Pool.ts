@@ -1,5 +1,12 @@
 import ABI from '../abi';
-import { MetrixContract, Provider, Transaction } from '@metrixcoin/metrilib';
+import {
+  MetrixContract,
+  Provider,
+  Transaction,
+  TransactionReceipt
+} from '@metrixcoin/metrilib';
+import { CONTRACTS } from '../constants';
+import { ZeroHash } from 'ethers';
 
 export default class Pool extends MetrixContract {
   constructor(address: string, provider: Provider) {
@@ -22,22 +29,42 @@ export default class Pool extends MetrixContract {
     amountMRX: string | undefined = '0',
     gasLimit: number | undefined = 250000
   ): Promise<Transaction> {
-    const tx = await this.send(
-      'addLiquidity(uint256,uint256,bool)',
-      [
-        `0x${amountGMRX.toString(16)}`,
-        `0x${minimum.toString(16)}`,
-        allowHighSlippage
-      ],
-      amountMRX,
-      gasLimit,
-      5000
-    );
-    const getReceipts = this.provider.getTxReceipts(tx, this.abi, this.address);
-    return {
-      txid: tx.txid,
-      getReceipts
-    };
+    try {
+      const tx = await this.send(
+        'addLiquidity(uint256,uint256,bool)',
+        [
+          `0x${amountGMRX.toString(16)}`,
+          `0x${minimum.toString(16)}`,
+          allowHighSlippage
+        ],
+        amountMRX,
+        gasLimit,
+        5000
+      );
+      const getReceipts = this.provider.getTxReceipts(
+        tx,
+        this.abi,
+        this.address
+      );
+      return {
+        txid: tx.txid,
+        getReceipts
+      };
+    } catch (e) {
+      const getReceipts = async () => {
+        return [] as TransactionReceipt[];
+      };
+      return {
+        txid: ZeroHash.replace('0x', ''),
+        getReceipts: getReceipts(),
+        error: {
+          message: (e as any).message
+            ? (e as any).message
+            : 'An unknown error occurred',
+          code: (e as any).code ? (e as any).code : undefined
+        }
+      };
+    }
   }
 
   /**
@@ -56,23 +83,43 @@ export default class Pool extends MetrixContract {
     allowHighSlippage = false,
     gasLimit: number | undefined = 250000
   ): Promise<Transaction> {
-    const tx = await this.send(
-      'addLiquidity(uint256,uint256,uint256,bool)',
-      [
-        `0x${amountMRX.toString(16)}`,
-        `0x${amountGMRX.toString(16)}`,
-        `0x${minimum.toString(16)}`,
-        allowHighSlippage
-      ],
-      '0',
-      gasLimit,
-      5000
-    );
-    const getReceipts = this.provider.getTxReceipts(tx, this.abi, this.address);
-    return {
-      txid: tx.txid,
-      getReceipts
-    };
+    try {
+      const tx = await this.send(
+        'addLiquidity(uint256,uint256,uint256,bool)',
+        [
+          `0x${amountMRX.toString(16)}`,
+          `0x${amountGMRX.toString(16)}`,
+          `0x${minimum.toString(16)}`,
+          allowHighSlippage
+        ],
+        '0',
+        gasLimit,
+        5000
+      );
+      const getReceipts = this.provider.getTxReceipts(
+        tx,
+        this.abi,
+        this.address
+      );
+      return {
+        txid: tx.txid,
+        getReceipts
+      };
+    } catch (e) {
+      const getReceipts = async () => {
+        return [] as TransactionReceipt[];
+      };
+      return {
+        txid: ZeroHash.replace('0x', ''),
+        getReceipts: getReceipts(),
+        error: {
+          message: (e as any).message
+            ? (e as any).message
+            : 'An unknown error occurred',
+          code: (e as any).code ? (e as any).code : undefined
+        }
+      };
+    }
   }
 
   /**
@@ -87,20 +134,44 @@ export default class Pool extends MetrixContract {
     amountGMRX: bigint,
     minimum: bigint,
     unwrapMRX = false,
-    gasLimit: number | undefined = 250000
+    gasLimit: number | undefined = unwrapMRX ? 124929 : 108007
   ): Promise<Transaction> {
-    const tx = await this.send(
-      'burnAndRelease(uint256,uint256,bool)',
-      [`0x${amountGMRX.toString(16)}`, `0x${minimum.toString(16)}`, unwrapMRX],
-      '0',
-      gasLimit,
-      5000
-    );
-    const getReceipts = this.provider.getTxReceipts(tx, this.abi, this.address);
-    return {
-      txid: tx.txid,
-      getReceipts
-    };
+    try {
+      const tx = await this.send(
+        'burnAndRelease(uint256,uint256,bool)',
+        [
+          `0x${amountGMRX.toString(16)}`,
+          `0x${minimum.toString(16)}`,
+          unwrapMRX
+        ],
+        '0',
+        gasLimit,
+        5000
+      );
+      const getReceipts = this.provider.getTxReceipts(
+        tx,
+        this.abi,
+        this.address
+      );
+      return {
+        txid: tx.txid,
+        getReceipts
+      };
+    } catch (e) {
+      const getReceipts = async () => {
+        return [] as TransactionReceipt[];
+      };
+      return {
+        txid: ZeroHash.replace('0x', ''),
+        getReceipts: getReceipts(),
+        error: {
+          message: (e as any).message
+            ? (e as any).message
+            : 'An unknown error occurred',
+          code: (e as any).code ? (e as any).code : undefined
+        }
+      };
+    }
   }
 
   /**
@@ -145,18 +216,38 @@ export default class Pool extends MetrixContract {
     amountLP: bigint,
     gasLimit: number | undefined = 250000
   ): Promise<Transaction> {
-    const tx = await this.send(
-      'lockLP(uint256)',
-      [`0x${amountLP.toString(16)}`],
-      '0',
-      gasLimit,
-      5000
-    );
-    const getReceipts = this.provider.getTxReceipts(tx, this.abi, this.address);
-    return {
-      txid: tx.txid,
-      getReceipts
-    };
+    try {
+      const tx = await this.send(
+        'lockLP(uint256)',
+        [`0x${amountLP.toString(16)}`],
+        '0',
+        gasLimit,
+        5000
+      );
+      const getReceipts = this.provider.getTxReceipts(
+        tx,
+        this.abi,
+        this.address
+      );
+      return {
+        txid: tx.txid,
+        getReceipts
+      };
+    } catch (e) {
+      const getReceipts = async () => {
+        return [] as TransactionReceipt[];
+      };
+      return {
+        txid: ZeroHash.replace('0x', ''),
+        getReceipts: getReceipts(),
+        error: {
+          message: (e as any).message
+            ? (e as any).message
+            : 'An unknown error occurred',
+          code: (e as any).code ? (e as any).code : undefined
+        }
+      };
+    }
   }
 
   /**
@@ -242,18 +333,38 @@ export default class Pool extends MetrixContract {
     unwrapMRX = false,
     gasLimit: number | undefined = 250000
   ): Promise<Transaction> {
-    const tx = await this.send(
-      'removeLiquidity(uint256,bool)',
-      [`0x${amountLP.toString(16)}`, unwrapMRX],
-      '0',
-      gasLimit,
-      5000
-    );
-    const getReceipts = this.provider.getTxReceipts(tx, this.abi, this.address);
-    return {
-      txid: tx.txid,
-      getReceipts
-    };
+    try {
+      const tx = await this.send(
+        'removeLiquidity(uint256,bool)',
+        [`0x${amountLP.toString(16)}`, unwrapMRX],
+        '0',
+        gasLimit,
+        5000
+      );
+      const getReceipts = this.provider.getTxReceipts(
+        tx,
+        this.abi,
+        this.address
+      );
+      return {
+        txid: tx.txid,
+        getReceipts
+      };
+    } catch (e) {
+      const getReceipts = async () => {
+        return [] as TransactionReceipt[];
+      };
+      return {
+        txid: ZeroHash.replace('0x', ''),
+        getReceipts: getReceipts(),
+        error: {
+          message: (e as any).message
+            ? (e as any).message
+            : 'An unknown error occurred',
+          code: (e as any).code ? (e as any).code : undefined
+        }
+      };
+    }
   }
 
   /**
@@ -313,27 +424,48 @@ export default class Pool extends MetrixContract {
     amountMRX: string | undefined = '0',
     gasLimit: number | undefined = 250000
   ): Promise<Transaction> {
-    const tx = await this.send(
-      'swapTokens(uint256,uint16)',
-      [`0x${minimum.toString(16)}`, `0x${slippage.toString(16)}`],
-      amountMRX,
-      gasLimit,
-      5000
-    );
-    const getReceipts = this.provider.getTxReceipts(tx, this.abi, this.address);
-    return {
-      txid: tx.txid,
-      getReceipts
-    };
+    try {
+      const tx = await this.send(
+        'swapTokens(uint256,uint16)',
+        [`0x${minimum.toString(16)}`, `0x${slippage.toString(16)}`],
+        amountMRX,
+        gasLimit,
+        5000
+      );
+      const getReceipts = this.provider.getTxReceipts(
+        tx,
+        this.abi,
+        this.address
+      );
+      return {
+        txid: tx.txid,
+        getReceipts
+      };
+    } catch (e) {
+      const getReceipts = async () => {
+        return [] as TransactionReceipt[];
+      };
+      return {
+        txid: ZeroHash.replace('0x', ''),
+        getReceipts: getReceipts(),
+        error: {
+          message: (e as any).message
+            ? (e as any).message
+            : 'An unknown error occurred',
+          code: (e as any).code ? (e as any).code : undefined
+        }
+      };
+    }
   }
 
   /**
    * Swap between gMRX and wMRX
-   * @param amount the amount of tokens to input
+   * @param amount the amount of tokens to input as satoshi
    * @param from the input token
    * @param to the output token
-   * @param minimum the minimum amount of gMRX tokens to receive as satoshi
+   * @param minimum the minimum amount of tokens to receive as satoshi
    * @param slippage the allowed amount of slippage as basis points
+   * @param unwrapMRX unwrap the wMRX to MRX
    * @param gasLimit the optional limit for gas units that can be consumed
    * @returns {Promise<Transaction>} an array of TransactionReceipt objects
    */
@@ -343,26 +475,52 @@ export default class Pool extends MetrixContract {
     to: string,
     minimum: bigint,
     slippage: bigint,
-    gasLimit: number | undefined = 250000
+    unwrapMRX: boolean,
+    gasLimit: number | undefined = unwrapMRX ? 101933 : 85316
   ): Promise<Transaction> {
-    const tx = await this.send(
-      'swapTokens(uint256,address,address,uint16)',
-      [
-        `0x${amount.toString(16)}`,
-        from,
-        to,
-        `0x${minimum.toString(16)}`,
-        `0x${slippage.toString(16)}`
-      ],
-      '0',
-      gasLimit,
-      5000
-    );
-    const getReceipts = this.provider.getTxReceipts(tx, this.abi, this.address);
-    return {
-      txid: tx.txid,
-      getReceipts
-    };
+    try {
+      const tx = await this.send(
+        'swapTokens(uint256,address,address,uint256,uint16,bool)',
+        [
+          `0x${amount.toString(16)}`,
+          from,
+          to,
+          `0x${minimum.toString(16)}`,
+          `0x${slippage.toString(16)}`,
+          unwrapMRX
+        ],
+        '0',
+        gasLimit,
+        unwrapMRX &&
+          to.toLowerCase().replace('0x', '') ===
+            CONTRACTS[this.provider.network].WrappedMetrix
+          ? 5000
+          : 5015
+      );
+      const getReceipts = this.provider.getTxReceipts(
+        tx,
+        this.abi,
+        this.address
+      );
+      return {
+        txid: tx.txid,
+        getReceipts
+      };
+    } catch (e) {
+      const getReceipts = async () => {
+        return [] as TransactionReceipt[];
+      };
+      return {
+        txid: ZeroHash.replace('0x', ''),
+        getReceipts: getReceipts(),
+        error: {
+          message: (e as any).message
+            ? (e as any).message
+            : 'An unknown error occurred',
+          code: (e as any).code ? (e as any).code : undefined
+        }
+      };
+    }
   }
 
   /**
@@ -398,17 +556,37 @@ export default class Pool extends MetrixContract {
     amountLP: bigint,
     gasLimit: number | undefined = 250000
   ): Promise<Transaction> {
-    const tx = await this.send(
-      'unlockLP(uint256)',
-      [`0x${amountLP.toString(16)}`],
-      '0',
-      gasLimit,
-      5000
-    );
-    const getReceipts = this.provider.getTxReceipts(tx, this.abi, this.address);
-    return {
-      txid: tx.txid,
-      getReceipts
-    };
+    try {
+      const tx = await this.send(
+        'unlockLP(uint256)',
+        [`0x${amountLP.toString(16)}`],
+        '0',
+        gasLimit,
+        5000
+      );
+      const getReceipts = this.provider.getTxReceipts(
+        tx,
+        this.abi,
+        this.address
+      );
+      return {
+        txid: tx.txid,
+        getReceipts
+      };
+    } catch (e) {
+      const getReceipts = async () => {
+        return [] as TransactionReceipt[];
+      };
+      return {
+        txid: ZeroHash.replace('0x', ''),
+        getReceipts: getReceipts(),
+        error: {
+          message: (e as any).message
+            ? (e as any).message
+            : 'An unknown error occurred',
+          code: (e as any).code ? (e as any).code : undefined
+        }
+      };
+    }
   }
 }

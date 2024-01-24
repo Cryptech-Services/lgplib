@@ -217,7 +217,7 @@ export default class Gov extends MetrixContract implements IERC721Enumerable {
    */
   async owner(): Promise<string> {
     const o = await this.call(`owner()`, []);
-    return o ? o.toString() : '';
+    return o ? o.toString() : ZeroAddress;
   }
 
   /**

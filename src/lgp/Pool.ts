@@ -6,7 +6,7 @@ import {
   TransactionReceipt
 } from '@metrixcoin/metrilib';
 import { CONTRACTS } from '../constants';
-import { ZeroHash } from 'ethers';
+import { ZeroAddress, ZeroHash } from 'ethers';
 
 export default class Pool extends MetrixContract {
   constructor(address: string, provider: Provider) {
@@ -180,7 +180,7 @@ export default class Pool extends MetrixContract {
    */
   async g(): Promise<string> {
     const t = await this.call(`g()`, []);
-    return t ? t.toString() : '';
+    return t ? t.toString() : ZeroAddress;
   }
 
   /**
@@ -189,7 +189,7 @@ export default class Pool extends MetrixContract {
    */
   async gmrx(): Promise<string> {
     const t = await this.call(`gmrx()`, []);
-    return t ? t.toString() : '';
+    return t ? t.toString() : ZeroAddress;
   }
 
   /**
@@ -270,14 +270,14 @@ export default class Pool extends MetrixContract {
    */
   async lp(): Promise<string> {
     const t = await this.call(`lp()`, []);
-    return t ? t.toString() : '';
+    return t ? t.toString() : ZeroAddress;
   }
 
   /**
    * Get a quote for LP based on the current reserves in the pool
    * @param amountMRX amount of MRX to add as satoshi
    * @param amountGMRX amount of gMRX to add as satoshi
-   * @returns {Promise<bigint>} the EVM style address of the LGP-LP contract
+   * @returns {Promise<bigint>} the amount of LGP-LP to receive as wei
    */
   async lpAddQuote(amountMRX: bigint, amountGMRX: bigint): Promise<bigint> {
     const q = await this.call(`lpAddQuote(uint256,uint256)`, [
@@ -318,7 +318,7 @@ export default class Pool extends MetrixContract {
    */
   async mrx(): Promise<string> {
     const t = await this.call(`mrx()`, []);
-    return t ? t.toString() : '';
+    return t ? t.toString() : ZeroAddress;
   }
 
   /**

@@ -1,4 +1,4 @@
-import { ZeroHash } from 'ethers';
+import { ZeroAddress, ZeroHash } from 'ethers';
 import ABI from '../abi';
 import {
   ERC20,
@@ -393,7 +393,7 @@ export default class LiquidityProvider extends MetrixContract implements ERC20 {
    */
   async owner(): Promise<string> {
     const o = await this.call(`owner()`, []);
-    return o ? o.toString() : '';
+    return o ? o.toString() : ZeroAddress;
   }
 
   /**

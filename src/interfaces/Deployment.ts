@@ -5,4 +5,7 @@ export default interface Deployment {
   LiquidityProvider: string;
   Pool: string;
   Gov: string;
+  Budget: string;
+  DGP: string;
+  Governance: string;
 }

@@ -1,4 +1,4 @@
-import { ZeroHash } from 'ethers';
+import { ZeroAddress, ZeroHash } from 'ethers';
 import ABI from '../abi';
 import { ProposalType, Vote } from '../enum';
 import {
@@ -114,7 +114,7 @@ export default class LiquidGovernance extends MetrixContract {
    */
   async g(): Promise<string> {
     const t = await this.call(`g()`, []);
-    return t ? t.toString() : '';
+    return t ? t.toString() : ZeroAddress;
   }
 
   /**
@@ -123,7 +123,7 @@ export default class LiquidGovernance extends MetrixContract {
    */
   async gmrx(): Promise<string> {
     const t = await this.call(`gmrx()`, []);
-    return t ? t.toString() : '';
+    return t ? t.toString() : ZeroAddress;
   }
 
   /**
@@ -132,7 +132,7 @@ export default class LiquidGovernance extends MetrixContract {
    */
   async governance(): Promise<string> {
     const t = await this.call(`governance()`, []);
-    return t ? t.toString() : '';
+    return t ? t.toString() : ZeroAddress;
   }
 
   /**
@@ -141,7 +141,7 @@ export default class LiquidGovernance extends MetrixContract {
    */
   async mns(): Promise<string> {
     const t = await this.call(`mns()`, []);
-    return t ? t.toString() : '';
+    return t ? t.toString() : ZeroAddress;
   }
 
   /**
@@ -150,7 +150,7 @@ export default class LiquidGovernance extends MetrixContract {
    */
   async mrx(): Promise<string> {
     const t = await this.call(`mrx()`, []);
-    return t ? t.toString() : '';
+    return t ? t.toString() : ZeroAddress;
   }
 
   /**
@@ -203,7 +203,7 @@ export default class LiquidGovernance extends MetrixContract {
    */
   async pool(): Promise<string> {
     const p = await this.call(`pool()`, []);
-    return p ? p.toString() : '';
+    return p ? p.toString() : ZeroAddress;
   }
   /**
    * Start a new Budget proposal

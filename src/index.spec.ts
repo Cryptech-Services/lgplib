@@ -1,4 +1,3 @@
-import { ZeroAddress } from 'ethers';
 import { equal } from 'assert';
 import { APIProvider, Provider, Transaction } from '@metrixcoin/metrilib';
 import { Pool, getLGPAddress, getLGPContract } from '.';
@@ -12,7 +11,7 @@ import {
 import ABI from '@metrixnames/mnslib/lib/abi';
 
 describe('MNS Labels', () => {
-  const network = 'TestNet';
+  const network = 'MainNet';
   const provider = new APIProvider(network);
 
   const lgp = getLGPContract(getLGPAddress(network), provider);

@@ -4,7 +4,7 @@ import { APIProvider } from '@metrixcoin/metrilib';
 import { CONTRACTS, Pool, getLGPAddress, getLGPContract } from '..';
 
 describe('Pool', () => {
-  const network = 'TestNet';
+  const network = 'MainNet';
   const provider = new APIProvider(network);
 
   const lgp = getLGPContract(getLGPAddress(network), provider);

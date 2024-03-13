@@ -3,7 +3,7 @@ import { APIProvider } from '@metrixcoin/metrilib';
 import { CONTRACTS, getLGPAddress, getLGPContract } from '..';
 
 describe('LiquidGovernance', () => {
-  const network = 'TestNet';
+  const network = 'MainNet';
   const provider = new APIProvider(network);
 
   const lgp = getLGPContract(getLGPAddress(network), provider);
@@ -34,11 +34,11 @@ describe('LiquidGovernance', () => {
     equal(address.replace('0x', '').toLowerCase(), CONTRACTS[network].Gov);
   }).timeout(30000);
 
-  it('should match TestNet Governance address', async () => {
+  it('should match MainNet Governance address', async () => {
     const address: string = await lgp.governance();
     equal(
       address.replace('0x', '').toLowerCase(),
-      '3cc15a2bae287cabb1ef6f26a86fa6f1895708eb'
+      '73e6c0383dceed1583eb6a4b2aa9253020cb2b18'
     );
   }).timeout(30000);
 });

@@ -4,7 +4,7 @@ import { CONTRACTS } from '../constants';
 import Budget from './Budget';
 
 describe('Budget', () => {
-  const network = 'TestNet';
+  const network = 'MainNet';
   const provider = new APIProvider(network);
 
   const budget = new Budget(CONTRACTS[network].Budget, provider);

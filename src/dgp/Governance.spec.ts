@@ -4,7 +4,7 @@ import { CONTRACTS } from '../constants';
 import Governance from './Governance';
 
 describe('Governance', () => {
-  const network = 'TestNet';
+  const network = 'MainNet';
   const provider = new APIProvider(network);
 
   const governace = new Governance(CONTRACTS[network].Governance, provider);

@@ -9,7 +9,7 @@ import {
 } from '..';
 
 describe('LiquidGovernorMRX', () => {
-  const network = 'TestNet';
+  const network = 'MainNet';
   const provider = new APIProvider(network);
 
   const lgp = getLGPContract(getLGPAddress(network), provider);

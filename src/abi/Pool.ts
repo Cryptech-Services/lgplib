@@ -125,13 +125,13 @@ export const Pool = [
         type: 'address'
       },
       {
-        indexed: false,
+        indexed: true,
         internalType: 'address',
         name: 'from',
         type: 'address'
       },
       {
-        indexed: false,
+        indexed: true,
         internalType: 'address',
         name: 'to',
         type: 'address'

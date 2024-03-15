@@ -31,6 +31,89 @@ export const LiquidGovernance = [
     name: 'GovernorCreated',
     type: 'event'
   },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'governor',
+        type: 'address'
+      }
+    ],
+    name: 'GovernorUnenrolled',
+    type: 'event'
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'governor',
+        type: 'address'
+      }
+    ],
+    name: 'Pinged',
+    type: 'event'
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'governor',
+        type: 'address'
+      },
+      {
+        indexed: true,
+        internalType: 'enum DGP.ProposalType',
+        name: 'proposalType',
+        type: 'uint8'
+      },
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'proposalAddress',
+        type: 'address'
+      }
+    ],
+    name: 'ProposalAdded',
+    type: 'event'
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'governor',
+        type: 'address'
+      }
+    ],
+    name: 'ProposalStarted',
+    type: 'event'
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'governor',
+        type: 'address'
+      },
+      {
+        indexed: true,
+        internalType: 'uint8',
+        name: 'proposalId',
+        type: 'uint8'
+      }
+    ],
+    name: 'ProposalVoted',
+    type: 'event'
+  },
   { stateMutability: 'payable', type: 'fallback' },
   {
     inputs: [

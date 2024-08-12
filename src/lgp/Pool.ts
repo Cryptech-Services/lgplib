@@ -58,9 +58,10 @@ export default class Pool extends MetrixContract {
         txid: ZeroHash.replace('0x', ''),
         getReceipts: getReceipts(),
         error: {
+          //eslint-disable-next-line @typescript-eslint/no-explicit-any
           message: (e as any).message
-            ? (e as any).message
-            : 'An unknown error occurred',
+            ? (e as any).message //eslint-disable-line @typescript-eslint/no-explicit-any
+            : 'An unknown error occurred', //eslint-disable-next-line @typescript-eslint/no-explicit-any
           code: (e as any).code ? (e as any).code : undefined
         }
       };
@@ -113,9 +114,10 @@ export default class Pool extends MetrixContract {
         txid: ZeroHash.replace('0x', ''),
         getReceipts: getReceipts(),
         error: {
+          //eslint-disable-next-line @typescript-eslint/no-explicit-any
           message: (e as any).message
-            ? (e as any).message
-            : 'An unknown error occurred',
+            ? (e as any).message //eslint-disable-line @typescript-eslint/no-explicit-any
+            : 'An unknown error occurred', //eslint-disable-next-line @typescript-eslint/no-explicit-any
           code: (e as any).code ? (e as any).code : undefined
         }
       };
@@ -165,9 +167,10 @@ export default class Pool extends MetrixContract {
         txid: ZeroHash.replace('0x', ''),
         getReceipts: getReceipts(),
         error: {
+          //eslint-disable-next-line @typescript-eslint/no-explicit-any
           message: (e as any).message
-            ? (e as any).message
-            : 'An unknown error occurred',
+            ? (e as any).message //eslint-disable-line @typescript-eslint/no-explicit-any
+            : 'An unknown error occurred', //eslint-disable-next-line @typescript-eslint/no-explicit-any
           code: (e as any).code ? (e as any).code : undefined
         }
       };
@@ -241,9 +244,10 @@ export default class Pool extends MetrixContract {
         txid: ZeroHash.replace('0x', ''),
         getReceipts: getReceipts(),
         error: {
+          //eslint-disable-next-line @typescript-eslint/no-explicit-any
           message: (e as any).message
-            ? (e as any).message
-            : 'An unknown error occurred',
+            ? (e as any).message //eslint-disable-line @typescript-eslint/no-explicit-any
+            : 'An unknown error occurred', //eslint-disable-next-line @typescript-eslint/no-explicit-any
           code: (e as any).code ? (e as any).code : undefined
         }
       };
@@ -358,9 +362,10 @@ export default class Pool extends MetrixContract {
         txid: ZeroHash.replace('0x', ''),
         getReceipts: getReceipts(),
         error: {
+          //eslint-disable-next-line @typescript-eslint/no-explicit-any
           message: (e as any).message
-            ? (e as any).message
-            : 'An unknown error occurred',
+            ? (e as any).message //eslint-disable-line @typescript-eslint/no-explicit-any
+            : 'An unknown error occurred', //eslint-disable-next-line @typescript-eslint/no-explicit-any
           code: (e as any).code ? (e as any).code : undefined
         }
       };
@@ -449,9 +454,10 @@ export default class Pool extends MetrixContract {
         txid: ZeroHash.replace('0x', ''),
         getReceipts: getReceipts(),
         error: {
+          //eslint-disable-next-line @typescript-eslint/no-explicit-any
           message: (e as any).message
-            ? (e as any).message
-            : 'An unknown error occurred',
+            ? (e as any).message //eslint-disable-line @typescript-eslint/no-explicit-any
+            : 'An unknown error occurred', //eslint-disable-next-line @typescript-eslint/no-explicit-any
           code: (e as any).code ? (e as any).code : undefined
         }
       };
@@ -514,9 +520,10 @@ export default class Pool extends MetrixContract {
         txid: ZeroHash.replace('0x', ''),
         getReceipts: getReceipts(),
         error: {
+          //eslint-disable-next-line @typescript-eslint/no-explicit-any
           message: (e as any).message
-            ? (e as any).message
-            : 'An unknown error occurred',
+            ? (e as any).message //eslint-disable-line @typescript-eslint/no-explicit-any
+            : 'An unknown error occurred', //eslint-disable-next-line @typescript-eslint/no-explicit-any
           code: (e as any).code ? (e as any).code : undefined
         }
       };
@@ -581,9 +588,10 @@ export default class Pool extends MetrixContract {
         txid: ZeroHash.replace('0x', ''),
         getReceipts: getReceipts(),
         error: {
+          //eslint-disable-next-line @typescript-eslint/no-explicit-any
           message: (e as any).message
-            ? (e as any).message
-            : 'An unknown error occurred',
+            ? (e as any).message //eslint-disable-line @typescript-eslint/no-explicit-any
+            : 'An unknown error occurred', //eslint-disable-next-line @typescript-eslint/no-explicit-any
           code: (e as any).code ? (e as any).code : undefined
         }
       };

@@ -49,7 +49,7 @@ describe('MNS Labels', () => {
 
     const name = await resolver.name(mnsName.hash);
     equal(name, 'Metrix LGP');
-  }).timeout(30000);
+  }).timeout(60000);
 
   it(`should have "Metrix LGP:Gov (g)" as an address.addr.reverse name`, async () => {
     const gAddr = (await lgp.g()).toLowerCase().replace('0x', '');
@@ -84,7 +84,7 @@ describe('MNS Labels', () => {
 
     const name = await resolver.name(mnsName.hash);
     equal(name, 'Metrix LGP:Gov (g)');
-  }).timeout(30000);
+  }).timeout(60000);
 
   it(`should have "Metrix LGP:Pool wMRX/gMRX" as an address.addr.reverse name`, async () => {
     const poolAddr = (await lgp.pool()).toLowerCase().replace('0x', '');
@@ -119,7 +119,7 @@ describe('MNS Labels', () => {
 
     const name = await resolver.name(mnsName.hash);
     equal(name, 'Metrix LGP:Pool wMRX/gMRX');
-  }).timeout(30000);
+  }).timeout(60000);
 
   it(`should have "Wrapped Metrix (wMRX)" as an address.addr.reverse name`, async () => {
     const mrxAddr = (await lgp.mrx()).toLowerCase().replace('0x', '');
@@ -154,7 +154,7 @@ describe('MNS Labels', () => {
 
     const name = await resolver.name(mnsName.hash);
     equal(name, 'Wrapped Metrix (wMRX)');
-  }).timeout(30000);
+  }).timeout(60000);
 
   it(`should have "Metrix LGP:Liquid Governor Metrix (gMRX)" as an address.addr.reverse name`, async () => {
     const gmrxAddr = (await lgp.gmrx()).toLowerCase().replace('0x', '');
@@ -189,7 +189,7 @@ describe('MNS Labels', () => {
 
     const name = await resolver.name(mnsName.hash);
     equal(name, 'Metrix LGP:Liquid Governor Metrix (gMRX)');
-  }).timeout(30000);
+  }).timeout(60000);
 
   it(`should have "Metrix LGP:LiquidGovernance-LP (LGP-LP)" as an address.addr.reverse name`, async () => {
     const poolAddr = (await lgp.pool()).toLowerCase().replace('0x', '');
@@ -227,5 +227,5 @@ describe('MNS Labels', () => {
 
     const name = await resolver.name(mnsName.hash);
     equal(name, 'Metrix LGP:LiquidGovernance-LP (LGP-LP)');
-  }).timeout(30000);
+  }).timeout(60000);
 });

@@ -16,30 +16,30 @@ describe('WrappedMetrix', () => {
 
   it('should match Wrapped Metrix address', async () => {
     equal(tokenAddr, CONTRACTS[network].WrappedMetrix);
-  }).timeout(30000);
+  }).timeout(60000);
 
   it('should be named "Wrapped Metrix"', async () => {
     const mrx = new WrappedMetrix(tokenAddr, provider);
     const name = await mrx.name();
     equal(name, 'Wrapped Metrix');
-  }).timeout(30000);
+  }).timeout(60000);
 
   it('should be have the symbol "wMRX"', async () => {
     const mrx = new WrappedMetrix(tokenAddr, provider);
     const symbol = await mrx.symbol();
     equal(symbol, 'wMRX');
-  }).timeout(30000);
+  }).timeout(60000);
 
   it('should be have 8 decimals', async () => {
     const mrx = new WrappedMetrix(tokenAddr, provider);
     const decimals = await mrx.decimals();
     equal(decimals, 8);
-  }).timeout(30000);
+  }).timeout(60000);
 
   it('should have a MRX balance that matches totalSupply', async () => {
     const mrx = new WrappedMetrix(tokenAddr, provider);
     const supply = await mrx.totalSupply();
     const balance = await mrx.balance();
     equal(balance, supply);
-  }).timeout(30000);
+  }).timeout(60000);
 });

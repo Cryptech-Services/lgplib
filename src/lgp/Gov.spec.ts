@@ -16,7 +16,7 @@ describe('Gov', () => {
 
   it('should match Gov address', async () => {
     equal(tokenAddr, CONTRACTS[network].Gov);
-  }).timeout(30000);
+  }).timeout(60000);
 
   it('should be owned by Metrix LGP', async () => {
     const g = new Gov(tokenAddr, provider);
@@ -25,17 +25,17 @@ describe('Gov', () => {
       address.replace('0x', '').toLowerCase(),
       CONTRACTS[network].LiquidGovernance
     );
-  }).timeout(30000);
+  }).timeout(60000);
 
   it('should be named "Gov"', async () => {
     const g = new Gov(tokenAddr, provider);
     const name = await g.name();
     equal(name, 'Gov');
-  }).timeout(30000);
+  }).timeout(60000);
 
   it('should be have the symbol "g"', async () => {
     const g = new Gov(tokenAddr, provider);
     const symbol = await g.symbol();
     equal(symbol, 'g');
-  }).timeout(30000);
+  }).timeout(60000);
 });

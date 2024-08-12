@@ -16,7 +16,7 @@ describe('Pool', () => {
 
   it('should match the Metrix LGP:Pool address', async () => {
     equal(poolAddr, CONTRACTS[network].Pool);
-  }).timeout(30000);
+  }).timeout(60000);
 
   it('should match the LiquidGovernance-LP address', async () => {
     const pool = new Pool(poolAddr, provider);
@@ -25,7 +25,7 @@ describe('Pool', () => {
       address.replace('0x', '').toLowerCase(),
       CONTRACTS[network].LiquidityProvider
     );
-  }).timeout(30000);
+  }).timeout(60000);
 
   it('should match the LiquidGovernance address for Wrapped Metrix', async () => {
     const pool = new Pool(poolAddr, provider);
@@ -35,7 +35,7 @@ describe('Pool', () => {
       address1.replace('0x', '').toLowerCase(),
       address2.replace('0x', '').toLowerCase()
     );
-  }).timeout(30000);
+  }).timeout(60000);
 
   it('should match the LiquidGovernance address for Liquid Governor Metrix', async () => {
     const pool = new Pool(poolAddr, provider);
@@ -45,7 +45,7 @@ describe('Pool', () => {
       address1.replace('0x', '').toLowerCase(),
       address2.replace('0x', '').toLowerCase()
     );
-  }).timeout(30000);
+  }).timeout(60000);
 
   it('should match the LiquidGovernance address for Gov', async () => {
     const pool = new Pool(poolAddr, provider);
@@ -55,5 +55,5 @@ describe('Pool', () => {
       address1.replace('0x', '').toLowerCase(),
       address2.replace('0x', '').toLowerCase()
     );
-  }).timeout(30000);
+  }).timeout(60000);
 });

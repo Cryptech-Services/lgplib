@@ -46,7 +46,7 @@
         "@metrixnames/mnslib": "^2.2.1",
         "@types/locks": "^0.2.1",
         "@types/mocha": "^10.0.1",
-        "@types/node": "^20.3.1",
+        "@types/node": "^22.2.0",
         "@typescript-eslint/eslint-plugin": "^8.1.0",
         "@typescript-eslint/parser": "^8.1.0",
         "assert": "^2.0.0",

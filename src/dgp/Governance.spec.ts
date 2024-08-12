@@ -1,4 +1,4 @@
-import { equal } from 'assert';
+import { equal, notEqual } from 'assert';
 import { APIProvider } from '@metrixcoin/metrilib';
 import { CONTRACTS } from '../constants';
 import Governance from './Governance';
@@ -19,6 +19,16 @@ describe('Governance', () => {
     equal(
       budgetAddr.toLowerCase().replace('0x', ''),
       CONTRACTS[network].Budget
+    );
+  }).timeout(30000);
+
+  it('should get some winner', async () => {
+    const currentWinner = await governace.currentWinner();
+    notEqual(currentWinner, undefined);
+    notEqual(currentWinner, null);
+    equal(
+      currentWinner.toLowerCase().replace('0x', ''),
+      currentWinner.toLowerCase().replace('0x', '')
     );
   }).timeout(30000);
 });

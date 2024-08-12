@@ -33,8 +33,8 @@ describe('MNS Labels', () => {
       }
 
       async setName(node: string, name: string): Promise<Transaction> {
-        node;
-        name;
+        node; //eslint-disable-line @typescript-eslint/no-unused-expressions
+        name; //eslint-disable-line @typescript-eslint/no-unused-expressions
         throw new Error();
       }
 
@@ -68,8 +68,8 @@ describe('MNS Labels', () => {
       }
 
       async setName(node: string, name: string): Promise<Transaction> {
-        node;
-        name;
+        node; //eslint-disable-line @typescript-eslint/no-unused-expressions
+        name; //eslint-disable-line @typescript-eslint/no-unused-expressions
         throw new Error();
       }
 
@@ -103,8 +103,8 @@ describe('MNS Labels', () => {
       }
 
       async setName(node: string, name: string): Promise<Transaction> {
-        node;
-        name;
+        node; //eslint-disable-line @typescript-eslint/no-unused-expressions
+        name; //eslint-disable-line @typescript-eslint/no-unused-expressions
         throw new Error();
       }
 
@@ -138,8 +138,8 @@ describe('MNS Labels', () => {
       }
 
       async setName(node: string, name: string): Promise<Transaction> {
-        node;
-        name;
+        node; //eslint-disable-line @typescript-eslint/no-unused-expressions
+        name; //eslint-disable-line @typescript-eslint/no-unused-expressions
         throw new Error();
       }
 
@@ -173,8 +173,8 @@ describe('MNS Labels', () => {
       }
 
       async setName(node: string, name: string): Promise<Transaction> {
-        node;
-        name;
+        node; //eslint-disable-line @typescript-eslint/no-unused-expressions
+        name; //eslint-disable-line @typescript-eslint/no-unused-expressions
         throw new Error();
       }
 
@@ -211,8 +211,8 @@ describe('MNS Labels', () => {
       }
 
       async setName(node: string, name: string): Promise<Transaction> {
-        node;
-        name;
+        node; //eslint-disable-line @typescript-eslint/no-unused-expressions
+        name; //eslint-disable-line @typescript-eslint/no-unused-expressions
         throw new Error();
       }
 

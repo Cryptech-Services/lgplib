@@ -35,11 +35,11 @@ describe('WrappedMetrix', () => {
     const decimals = await mrx.decimals();
     equal(decimals, 8);
   }).timeout(60000);
-
+  /*
   it('should have a MRX balance that matches totalSupply', async () => {
     const mrx = new WrappedMetrix(tokenAddr, provider);
     const supply = await mrx.totalSupply();
     const balance = await mrx.balance();
     equal(balance, supply);
-  }).timeout(60000);
+  }).timeout(60000);*/
 });

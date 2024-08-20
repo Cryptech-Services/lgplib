@@ -20,9 +20,7 @@ export default class Governance extends MetrixContract {
   async balance(): Promise<bigint> {
     const bal = await this.call(`balance()`, []);
     return !isNaN(Number(bal ? bal.toString() : undefined))
-      ? BigInt(
-          bal!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
-        )
+      ? BigInt(bal!.toString())
       : BigInt(0);
   }
 
@@ -107,9 +105,7 @@ export default class Governance extends MetrixContract {
   async governorCount(): Promise<bigint> {
     const count = await this.call(`governorCount()`, []);
     return !isNaN(Number(count ? count.toString() : undefined))
-      ? BigInt(
-          count!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
-        )
+      ? BigInt(count!.toString())
       : BigInt(0);
   }
 

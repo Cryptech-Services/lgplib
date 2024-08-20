@@ -203,9 +203,7 @@ export default class Pool extends MetrixContract {
   async lockCooldown(locker: string): Promise<bigint> {
     const cooldown = await this.call(`lockCooldown(address)`, [locker]);
     return !isNaN(Number(cooldown ? cooldown.toString() : undefined))
-      ? BigInt(
-          cooldown!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
-        )
+      ? BigInt(cooldown!.toString())
       : BigInt(0);
   }
 
@@ -262,9 +260,7 @@ export default class Pool extends MetrixContract {
   async lockedLP(locker: string): Promise<bigint> {
     const cooldown = await this.call(`lockedLP(address)`, [locker]);
     return !isNaN(Number(cooldown ? cooldown.toString() : undefined))
-      ? BigInt(
-          cooldown!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
-        )
+      ? BigInt(cooldown!.toString())
       : BigInt(0);
   }
 
@@ -289,9 +285,7 @@ export default class Pool extends MetrixContract {
       `0x${amountGMRX.toString(16)}`
     ]);
     return !isNaN(Number(q ? q.toString() : undefined))
-      ? BigInt(
-          q!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
-        )
+      ? BigInt(q!.toString())
       : BigInt(0);
   }
 
@@ -537,9 +531,7 @@ export default class Pool extends MetrixContract {
   async totalLockedLP(): Promise<bigint> {
     const locked = await this.call(`totalLockedLP()`, []);
     return !isNaN(Number(locked ? locked.toString() : undefined))
-      ? BigInt(
-          locked!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
-        )
+      ? BigInt(locked!.toString())
       : BigInt(0);
   }
 

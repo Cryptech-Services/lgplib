@@ -106,9 +106,7 @@ export default class LiquidityProvider extends MetrixContract implements ERC20 {
   async decimals(): Promise<number> {
     const dec = await this.call(`decimals()`, []);
     return !isNaN(Number(dec ? dec.toString() : undefined))
-      ? Number(
-          dec! /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
-        )
+      ? Number(dec!)
       : Number(0);
   }
 
@@ -118,9 +116,7 @@ export default class LiquidityProvider extends MetrixContract implements ERC20 {
       spender
     ]);
     return !isNaN(Number(allowance ? allowance.toString() : undefined))
-      ? BigInt(
-          allowance!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
-        )
+      ? BigInt(allowance!.toString())
       : BigInt(0);
   }
 
@@ -167,18 +163,14 @@ export default class LiquidityProvider extends MetrixContract implements ERC20 {
   async balanceOf(owner: string): Promise<bigint> {
     const balance = await this.call(`balanceOf(address)`, [owner]);
     return !isNaN(Number(balance ? balance.toString() : undefined))
-      ? BigInt(
-          balance!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
-        )
+      ? BigInt(balance!.toString())
       : BigInt(0);
   }
 
   async totalSupply(): Promise<bigint> {
     const total = await this.call(`totalSupply()`, []);
     return !isNaN(Number(total ? total.toString() : undefined))
-      ? BigInt(
-          total!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
-        )
+      ? BigInt(total!.toString())
       : BigInt(0);
   }
 

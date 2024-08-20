@@ -14,9 +14,7 @@ export default class Gov extends MetrixContract implements IERC721Enumerable {
   async totalSupply(): Promise<bigint> {
     const total = await this.call(`totalSupply()`, []);
     return !isNaN(Number(total ? total.toString() : undefined))
-      ? BigInt(
-          total!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
-        )
+      ? BigInt(total!.toString())
       : BigInt(0);
   }
 
@@ -38,9 +36,7 @@ export default class Gov extends MetrixContract implements IERC721Enumerable {
   async balanceOf(owner: string): Promise<bigint> {
     const balance = await this.call(`balanceOf(address)`, [owner]);
     return !isNaN(Number(balance ? balance.toString() : undefined))
-      ? BigInt(
-          balance!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
-        )
+      ? BigInt(balance!.toString())
       : BigInt(0);
   }
 

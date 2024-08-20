@@ -95,9 +95,7 @@ export default class DGP extends MetrixContract {
   async defaultBlockGasLimit(): Promise<bigint> {
     const def = await this.call(`defaultBlockGasLimit()`, []);
     return !isNaN(Number(def ? def.toString() : undefined))
-      ? BigInt(
-          def!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
-        )
+      ? BigInt(def!.toString())
       : BigInt(0);
   }
 
@@ -108,9 +106,7 @@ export default class DGP extends MetrixContract {
   async defaultBlockSize(): Promise<bigint> {
     const def = await this.call(`defaultBlockSize()`, []);
     return !isNaN(Number(def ? def.toString() : undefined))
-      ? BigInt(
-          def!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
-        )
+      ? BigInt(def!.toString())
       : BigInt(0);
   }
 
@@ -122,9 +118,7 @@ export default class DGP extends MetrixContract {
   async defaultBudgetFee(): Promise<bigint> {
     const def = await this.call(`defaultBudgetFee()`, []);
     return !isNaN(Number(def ? def.toString() : undefined))
-      ? BigInt(
-          def!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
-        )
+      ? BigInt(def!.toString())
       : BigInt(0);
   }
 
@@ -136,9 +130,7 @@ export default class DGP extends MetrixContract {
   async defaultDustRelayFee(): Promise<bigint> {
     const def = await this.call(`defaultDustRelayFee()`, []);
     return !isNaN(Number(def ? def.toString() : undefined))
-      ? BigInt(
-          def!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
-        )
+      ? BigInt(def!.toString())
       : BigInt(0);
   }
 
@@ -246,9 +238,7 @@ export default class DGP extends MetrixContract {
   async defaultGovernanceCollateral(): Promise<bigint> {
     const def = await this.call(`defaultGovernanceCollateral()`, []);
     return !isNaN(Number(def ? def.toString() : undefined))
-      ? BigInt(
-          def!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
-        )
+      ? BigInt(def!.toString())
       : BigInt(0);
   }
 
@@ -260,9 +250,7 @@ export default class DGP extends MetrixContract {
   async defaultIncrementalRelayFee(): Promise<bigint> {
     const def = await this.call(`defaultIncrementalRelayFee()`, []);
     return !isNaN(Number(def ? def.toString() : undefined))
-      ? BigInt(
-          def!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
-        )
+      ? BigInt(def!.toString())
       : BigInt(0);
   }
 
@@ -274,9 +262,7 @@ export default class DGP extends MetrixContract {
   async defaultMinGasPrice(): Promise<bigint> {
     const def = await this.call(`defaultMinGasPrice()`, []);
     return !isNaN(Number(def ? def.toString() : undefined))
-      ? BigInt(
-          def!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
-        )
+      ? BigInt(def!.toString())
       : BigInt(0);
   }
 
@@ -288,9 +274,7 @@ export default class DGP extends MetrixContract {
   async defaultMinRelayTxFee(): Promise<bigint> {
     const def = await this.call(`defaultMinRelayTxFee()`, []);
     return !isNaN(Number(def ? def.toString() : undefined))
-      ? BigInt(
-          def!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
-        )
+      ? BigInt(def!.toString())
       : BigInt(0);
   }
 
@@ -311,11 +295,7 @@ export default class DGP extends MetrixContract {
   async getBlockGasLimit(): Promise<[limit: bigint]> {
     const limit = await this.call(`getBlockGasLimit()`, []);
     return !isNaN(Number(limit ? limit[0].toString() : undefined))
-      ? [
-          BigInt(
-            limit![0].toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
-          )
-        ]
+      ? [BigInt(limit![0].toString())]
       : [BigInt(0)];
   }
 
@@ -327,11 +307,7 @@ export default class DGP extends MetrixContract {
   async getBlockSize(): Promise<[size: bigint]> {
     const size = await this.call(`getBlockSize()`, []);
     return !isNaN(Number(size ? size[0].toString() : undefined))
-      ? [
-          BigInt(
-            size![0].toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
-          )
-        ]
+      ? [BigInt(size![0].toString())]
       : [BigInt(0)];
   }
 
@@ -343,11 +319,7 @@ export default class DGP extends MetrixContract {
   async getBudgetFee(): Promise<[fee: bigint]> {
     const fee = await this.call(`getBudgetFee()`, []);
     return !isNaN(Number(fee ? fee[0].toString() : undefined))
-      ? [
-          BigInt(
-            fee![0].toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
-          )
-        ]
+      ? [BigInt(fee![0].toString())]
       : [BigInt(0)];
   }
 
@@ -359,11 +331,7 @@ export default class DGP extends MetrixContract {
   async getGovernanceCollateral(): Promise<[fee: bigint]> {
     const collateral = await this.call(`getGovernanceCollateral()`, []);
     return !isNaN(Number(collateral ? collateral[0].toString() : undefined))
-      ? [
-          BigInt(
-            collateral![0].toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
-          )
-        ]
+      ? [BigInt(collateral![0].toString())]
       : [BigInt(0)];
   }
 
@@ -375,11 +343,7 @@ export default class DGP extends MetrixContract {
   async getMinGasPrice(): Promise<[min: bigint]> {
     const min = await this.call(`getMinGasPrice()`, []);
     return !isNaN(Number(min ? min[0].toString() : undefined))
-      ? [
-          BigInt(
-            min![0].toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
-          )
-        ]
+      ? [BigInt(min![0].toString())]
       : [BigInt(0)];
   }
 
@@ -526,9 +490,7 @@ export default class DGP extends MetrixContract {
   async maxBlockGasLimit(): Promise<bigint> {
     const max = await this.call(`maxBlockGasLimit()`, []);
     return !isNaN(Number(max ? max.toString() : undefined))
-      ? BigInt(
-          max!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
-        )
+      ? BigInt(max!.toString())
       : BigInt(0);
   }
 
@@ -539,9 +501,7 @@ export default class DGP extends MetrixContract {
   async maxBlockSize(): Promise<bigint> {
     const max = await this.call(`maxBlockSize()`, []);
     return !isNaN(Number(max ? max.toString() : undefined))
-      ? BigInt(
-          max!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
-        )
+      ? BigInt(max!.toString())
       : BigInt(0);
   }
 
@@ -552,9 +512,7 @@ export default class DGP extends MetrixContract {
   async maxBudgetFee(): Promise<bigint> {
     const max = await this.call(`maxBudgetFee()`, []);
     return !isNaN(Number(max ? max.toString() : undefined))
-      ? BigInt(
-          max!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
-        )
+      ? BigInt(max!.toString())
       : BigInt(0);
   }
   /**
@@ -564,9 +522,7 @@ export default class DGP extends MetrixContract {
   async maxDustRelayFee(): Promise<bigint> {
     const max = await this.call(`maxDustRelayFee()`, []);
     return !isNaN(Number(max ? max.toString() : undefined))
-      ? BigInt(
-          max!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
-        )
+      ? BigInt(max!.toString())
       : BigInt(0);
   }
 
@@ -577,9 +533,7 @@ export default class DGP extends MetrixContract {
   async maxGovernanceCollateral(): Promise<bigint> {
     const max = await this.call(`maxGovernanceCollateral()`, []);
     return !isNaN(Number(max ? max.toString() : undefined))
-      ? BigInt(
-          max!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
-        )
+      ? BigInt(max!.toString())
       : BigInt(0);
   }
 
@@ -590,9 +544,7 @@ export default class DGP extends MetrixContract {
   async maxIncrementalRelayFee(): Promise<bigint> {
     const max = await this.call(`maxIncrementalRelayFee()`, []);
     return !isNaN(Number(max ? max.toString() : undefined))
-      ? BigInt(
-          max!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
-        )
+      ? BigInt(max!.toString())
       : BigInt(0);
   }
 
@@ -603,9 +555,7 @@ export default class DGP extends MetrixContract {
   async maxMinGasPrice(): Promise<bigint> {
     const max = await this.call(`maxMinGasPrice()`, []);
     return !isNaN(Number(max ? max.toString() : undefined))
-      ? BigInt(
-          max!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
-        )
+      ? BigInt(max!.toString())
       : BigInt(0);
   }
 
@@ -616,9 +566,7 @@ export default class DGP extends MetrixContract {
   async maxMinRelayTxFee(): Promise<bigint> {
     const max = await this.call(`maxMinRelayTxFee()`, []);
     return !isNaN(Number(max ? max.toString() : undefined))
-      ? BigInt(
-          max!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
-        )
+      ? BigInt(max!.toString())
       : BigInt(0);
   }
 
@@ -629,9 +577,7 @@ export default class DGP extends MetrixContract {
   async minBlockGasLimit(): Promise<bigint> {
     const max = await this.call(`minBlockGasLimit()`, []);
     return !isNaN(Number(max ? max.toString() : undefined))
-      ? BigInt(
-          max!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
-        )
+      ? BigInt(max!.toString())
       : BigInt(0);
   }
 
@@ -642,9 +588,7 @@ export default class DGP extends MetrixContract {
   async minBlockSize(): Promise<bigint> {
     const max = await this.call(`minBlockSize()`, []);
     return !isNaN(Number(max ? max.toString() : undefined))
-      ? BigInt(
-          max!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
-        )
+      ? BigInt(max!.toString())
       : BigInt(0);
   }
 

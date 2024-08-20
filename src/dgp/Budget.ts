@@ -27,9 +27,7 @@ export default class Budget extends MetrixContract {
   async balance(): Promise<bigint> {
     const bal = await this.call(`balance()`, []);
     return !isNaN(Number(bal ? bal.toString() : undefined))
-      ? BigInt(
-          bal!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
-        )
+      ? BigInt(bal!.toString())
       : BigInt(0);
   }
 
@@ -90,9 +88,7 @@ export default class Budget extends MetrixContract {
       `0x${proposalId.toString(16)}`
     ]);
     return !isNaN(Number(index ? index.toString() : undefined))
-      ? BigInt(
-          index!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
-        )
+      ? BigInt(index!.toString())
       : BigInt(0);
   }
 
@@ -108,9 +104,7 @@ export default class Budget extends MetrixContract {
   async proposalCount(): Promise<bigint> {
     const count = await this.call(`proposalCount()`, []);
     return !isNaN(Number(count ? count.toString() : undefined))
-      ? BigInt(
-          count!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
-        )
+      ? BigInt(count!.toString())
       : BigInt(0);
   }
 
@@ -124,9 +118,7 @@ export default class Budget extends MetrixContract {
       `0x${proposalId.toString(16)}`
     ]);
     return !isNaN(Number(status ? status.toString() : undefined))
-      ? Number(
-          status!.toString() /* eslint-disable-line @typescript-eslint/no-non-null-assertion */
-        )
+      ? Number(status!.toString())
       : Number(0);
   }
 

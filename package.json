@@ -1,6 +1,6 @@
 {
     "name": "@cryptech.services/lgplib",
-    "version": "1.0.12",
+    "version": "1.0.13",
     "description": "Library for interacting with the Metrix Liquid Governance Protocol",
     "repository": "Cryptech-Services/lgplib",
     "source": "src/index.ts",
@@ -16,8 +16,8 @@
         "test": "./src"
     },
     "engines": {
-        "npm": ">=8.0.0",
-        "node": ">=16.0.0"
+        "npm": ">=6.0.0",
+        "node": ">=18.0.0"
     },
     "scripts": {
         "test": "mocha --config mocharc.json",
@@ -25,7 +25,8 @@
         "lint": "eslint .",
         "format": "prettier --write \"**/*.+(js|ts|json)\"",
         "build": "tsc",
-        "doc": "npx typedoc src"
+        "doc": "npx typedoc src",
+        "clean": "rimraf lib docs"
     },
     "nyc": {
         "include": [
@@ -43,7 +44,7 @@
     "license": "MIT",
     "devDependencies": {
         "@istanbuljs/nyc-config-typescript": "^1.0.2",
-        "@metrixnames/mnslib": "^2.2.2",
+        "@metrixnames/mnslib": "^2.2.3",
         "@types/locks": "^0.2.1",
         "@types/mocha": "^10.0.1",
         "@types/node": "^22.2.0",
@@ -54,13 +55,14 @@
         "mocha": "^10.0.0",
         "nyc": "^17.0.0",
         "prettier": "^3.1.1",
+        "rimraf": "^6.0.1",
         "source-map-support": "^0.5.21",
         "ts-node": "^10.8.0",
         "typedoc": "^0.26.5",
         "typescript": "5.5.4"
     },
     "dependencies": {
-        "@metrixcoin/metrilib": "^1.6.1-beta",
+        "@metrixcoin/metrilib": "^1.6.2-beta",
         "bs58": "^6.0.0",
         "ethers": "^6.0.3",
         "locks": "^0.2.2"
